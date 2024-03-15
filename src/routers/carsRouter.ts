@@ -12,15 +12,10 @@ const router = express.Router();
 // search
 // filter
 router.get("/", (request: Request, response: Response) => {
-  // query
-  const modelQuery = request.query.model as string;
-  console.log(request.query, "query");
-
-  const foundVintageCar = vintageCarsInServer.filter((vintageCar) =>
-    vintageCar.model.toLowerCase().includes(modelQuery.toLowerCase())
-  );
-
-  response.status(200).json(foundVintageCar);
+  console.log(request);
+  response
+    .status(200)
+    .json({ data: CanvasRenderingContext2D, message: "Success", status: 200 });
 });
 
 // base url:"http://localhost:8080/api/v1/cars/"
@@ -34,9 +29,9 @@ router.post("/", (request: Request, response: Response) => {
   response.status(201).json(newVintageCar);
 });
 
-// base url:"http://localhost:8080/api/v1/cars/:productId"
+// base url:"http://localhost:8080/api/v1/cars/:carId"
 router.delete("/:carId", (request: Request, response: Response) => {
-  const vintageCarId = request.params.productId;
+  const vintageCarId = request.params.carId;
   const carToDelete = vintageCarsInServer.filter(
     (vintageCar: VintageCar) => vintageCar.id !== vintageCarId
   );

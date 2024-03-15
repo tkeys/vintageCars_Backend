@@ -1,5 +1,5 @@
 // express
-import express, { Request, Response } from "express";
+import express from "express";
 
 import carsRouter from "./routers/carsRouter";
 
@@ -10,7 +10,6 @@ const app = express();
 app.use(express.json());
 
 app.use(`${baseUrl}/cars`, carsRouter);
-
 // users
 
 app.listen(PORT, () => {
