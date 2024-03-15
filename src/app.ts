@@ -9,7 +9,7 @@ const baseUrl = "/api/v1";
 const app = express();
 app.use(express.json());
 
-app.use(`${baseUrl}/cars"`, carsRouter);
+app.use(`${baseUrl}/cars`, carsRouter);
 // users
 
 app.listen(PORT, () => {
