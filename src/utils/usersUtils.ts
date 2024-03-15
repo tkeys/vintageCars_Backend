@@ -1,8 +1,15 @@
 import { User } from "../types/User";
+import { UserProperty } from "../types/UserProperty";
 
-export function findUserByEmail(
-  users: User[],
-  email: string
+export function findUserByProperty(
+  property: UserProperty,
+  propertyValue: User[keyof User],
+  users: User[]
 ): User | undefined {
-  return users.find((user) => user.email === email);
+  return users.find((user) => {
+    if (property in user) {
+      return user[property] === propertyValue;
+    }
+    return false;
+  });
 }

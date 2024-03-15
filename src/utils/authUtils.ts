@@ -5,8 +5,11 @@ import crypto from "crypto";
 import jwt from "jsonwebtoken";
 
 import { User } from "../types/User";
+import { JwtProperty } from "../types/JwtProperty";
+import { DecodedJwtPayload } from "../types/DecodedJwtPayload";
 
 const saltRounds = 10;
+const secret = crypto.randomBytes(32).toString("hex");
 
 export async function hashPassword(password: string): Promise<string> {
   try {
@@ -50,8 +53,6 @@ export async function comparePasswords(
 }
 
 export function generateAuthToken(user: User): string {
-  const secret = crypto.randomBytes(32).toString("hex");
-
   const token = jwt.sign(
     { userId: user.id, userRole: user.role, isUserBanned: user.banned },
     secret,
@@ -61,3 +62,34 @@ export function generateAuthToken(user: User): string {
   );
   return token;
 }
+
+export function extractJwtToken(authorizationHeader: string): string | null {
+  if (!authorizationHeader) {
+    return null;
+  }
+
+  const tokenParts = authorizationHeader.split(" ");
+  if (tokenParts.length !== 2 || tokenParts[0] !== "Bearer") {
+    return null;
+  }
+
+  return tokenParts[1];
+}
+
+export function verifyJwtToken(jwtToken: string): DecodedJwtPayload | null {
+  try {
+    const decodedToken = jwt.verify(jwtToken, secret);
+    return decodedToken as DecodedJwtPayload;
+  } catch (error) {
+    console.error("Error verifying token:", error);
+    return null;
+  }
+}
+
+export function extractPropertyFromJwt<T extends DecodedJwtPayload>(
+  decodedToken: T,
+  property: JwtProperty
+): DecodedJwtPayload[keyof DecodedJwtPayload] | undefined {
+  return decodedToken[property];
+}
+
