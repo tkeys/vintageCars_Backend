@@ -1,9 +1,9 @@
-import express, { Request, Response } from "express";
-import { v4 as uuidv4 } from "uuid";
+import express, { Request, Response } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 
-import { users } from "../data/mockUsers";
-import { User } from "../types/User";
-import { Role } from "../types/Role";
+import { users } from '../data/mockUsers';
+import { User } from '../types/User';
+import { Role } from '../types/Role';
 import {
   comparePasswords,
   generateAuthToken,
@@ -11,32 +11,32 @@ import {
   isEmailUnique,
   isUserNameUnique,
   validateRequestBody,
-} from "../utils/authUtils";
-import { findUserByEmail } from "../utils/usersUtils";
-import registerSchema from "../validators/registerSchema";
-import loginSchema from "../validators/loginSchema";
+} from '../utils/authUtils';
+import { findUserByEmail } from '../utils/usersUtils';
+import registerSchema from '../validators/registerSchema';
+import loginSchema from '../validators/loginSchema';
 
 export let usersInServer = [...users];
 
 const router = express.Router();
 
 router.post(
-  "/register",
+  '/register',
   validateRequestBody(registerSchema),
   async (request: Request, response: Response) => {
     const userFromRequestBody = request.body as User;
 
     if (!isUserNameUnique(userFromRequestBody.userName, usersInServer)) {
       return response.status(400).json({
-        status: "fail",
-        message: "Username already exists",
+        status: 'fail',
+        message: 'Username already exists',
       });
     }
 
     if (!isEmailUnique(userFromRequestBody.email, usersInServer)) {
       return response.status(400).json({
-        status: "fail",
-        message: "Email already exists",
+        status: 'fail',
+        message: 'Email already exists',
       });
     }
 
@@ -44,10 +44,10 @@ router.post(
       const hashedPassword = await hashPassword(userFromRequestBody.password!);
       userFromRequestBody.hashedPassword = hashedPassword;
     } catch (error) {
-      console.error("Error hashing password:", error);
+      console.error('Error hashing password:', error);
       return response.status(500).json({
-        status: "error",
-        message: "Internal server error",
+        status: 'error',
+        message: 'Internal server error',
       });
     }
 
@@ -68,15 +68,15 @@ router.post(
     usersInServer.push(userFromRequestBody);
 
     response.status(201).json({
-      status: "success",
-      message: "User registered successfully.",
+      status: 'success',
+      message: 'User registered successfully.',
       data: sanitizedUser,
     });
   }
 );
 
 router.post(
-  "/login",
+  '/login',
   validateRequestBody(loginSchema),
   async (request: Request, response: Response) => {
     const { email, password } = request.body;
@@ -85,8 +85,8 @@ router.post(
 
     if (!foundUser) {
       return response.status(401).json({
-        status: "fail",
-        message: "Invalid email or password",
+        status: 'fail',
+        message: 'Invalid email or password',
       });
     }
 
@@ -97,14 +97,14 @@ router.post(
 
     if (!passwordMatch) {
       return response.status(401).json({
-        status: "fail",
-        message: "Invalid email or password",
+        status: 'fail',
+        message: 'Invalid email or password',
       });
     }
 
     response.json({
-      status: "success",
-      message: "Login successful",
+      status: 'success',
+      message: 'Login successful',
       token: generateAuthToken(foundUser),
     });
   }
