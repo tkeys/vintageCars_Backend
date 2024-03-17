@@ -12,10 +12,15 @@ const router = express.Router();
 // search
 // filter
 router.get('/', (request: Request, response: Response) => {
-  console.log(request);
+  const modelQuery = request.query.model as string;
+  console.log(modelQuery);
+  vintageCarsInServer = vintageCarsInServer.filter((car: VintageCar) =>
+    car.model.toLowerCase().includes(modelQuery.toLocaleLowerCase())
+  );
   response
     .status(200)
-    .json({ data: CanvasRenderingContext2D, message: 'Success', status: 200 });
+    .json({ data: vintageCarsInServer, message: 'Success', status: 200 });
+  //console.log(request);
 });
 
 // base url:"http://localhost:8080/api/v1/cars/"
