@@ -7,12 +7,13 @@ let vintageCarsInServer = [...vintageCars];
 const router = express.Router();
 
 // query
-// http://localhost:8080/api/v1/cars?model=Generic
+// http://localhost:8080/api/v1/cars?model=Generic&&conditions=Excellent
 // ?offset=0&limit=10
 // search
 // filter
 router.get('/', (request: Request, response: Response) => {
   const modelQuery = request.query.model as string;
+  const conditionsQuery = request.query.conditions as string;
   console.log(modelQuery);
   vintageCarsInServer = vintageCarsInServer.filter((car: VintageCar) =>
     car.model.toLowerCase().includes(modelQuery.toLocaleLowerCase())
