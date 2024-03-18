@@ -1,21 +1,38 @@
-import mongoose, { Document, Model } from "mongoose";
-import { User } from "../types/type";
+import mongoose, { Document } from "mongoose";
+import { UserData } from "../types/UserData";
+import { Role } from "../types/Role";
 
-const Schema = mongoose.Schema;
-
-export type UserDocument = Document & User;
+export type UserDocument = Document & UserData;
 
 const UserSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
   email: {
     type: String,
     required: true,
   },
-  password: {
+  userName: {
     type: String,
+    required: true,
+  },
+  password: String,
+  hashedPassword: {
+    type: String,
+    required: true,
+  },
+  firstName: {
+    type: String,
+    required: true,
+  },
+  lastName: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    enum: Object.values(Role),
+    required: true,
+  },
+  banned: {
+    type: Boolean,
     required: true,
   },
 });
