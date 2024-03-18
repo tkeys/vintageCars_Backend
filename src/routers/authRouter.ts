@@ -6,15 +6,20 @@ import { User } from "../types/User";
 import { Role } from "../types/Role";
 import {
   comparePasswords,
+  extractJwtToken,
+  extractPropertyFromJwt,
   generateAuthToken,
   hashPassword,
   isEmailUnique,
   isUserNameUnique,
   validateRequestBody,
+  verifyJwtToken,
 } from "../utils/authUtils";
-import { findUserByEmail } from "../utils/usersUtils";
+import { findUserByProperty } from "../utils/usersUtils";
 import registerSchema from "../validators/registerSchema";
 import loginSchema from "../validators/loginSchema";
+import { UserProperty } from "../types/UserProperty";
+import { JwtProperty } from "../types/JwtProperty";
 
 export let usersInServer = [...users];
 
@@ -81,7 +86,11 @@ router.post(
   async (request: Request, response: Response) => {
     const { email, password } = request.body;
 
-    const foundUser: User | undefined = findUserByEmail(usersInServer, email);
+    const foundUser = findUserByProperty(
+      UserProperty.Email,
+      email,
+      usersInServer
+    );
 
     if (!foundUser) {
       return response.status(401).json({
@@ -109,5 +118,59 @@ router.post(
     });
   }
 );
+
+router.post("/verify", async (request: Request, response: Response) => {
+  const authorizationHeader = request.headers.authorization;
+
+  if (!authorizationHeader) {
+    return response.status(400).json({
+      status: "fail",
+      message: "Token is required in the 'Authorization' header",
+    });
+  }
+
+  const jwtToken = extractJwtToken(authorizationHeader);
+
+  if (!jwtToken) {
+    return response.status(400).json({
+      status: "fail",
+      message: "Invalid token format. Please use 'Bearer <token>'",
+    });
+  }
+
+  try {
+    const decodedToken = verifyJwtToken(jwtToken);
+
+    if (!decodedToken) {
+      return response.status(401).json({
+        status: "fail",
+        message: "Invalid or expired token",
+      });
+    }
+
+    const userId = extractPropertyFromJwt(
+      decodedToken,
+      JwtProperty.UserId
+    ) as string;
+
+    const foundUser = findUserByProperty(
+      UserProperty.Id,
+      userId,
+      usersInServer
+    );
+
+    response.status(200).json({
+      status: "success",
+      message: "Token is valid",
+      data: foundUser,
+    });
+  } catch (error) {
+    console.error("Error verifying token:", error);
+    return response.status(401).json({
+      status: "fail",
+      message: "Invalid token",
+    });
+  }
+});
 
 export default router;
