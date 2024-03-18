@@ -1,11 +1,7 @@
-import User, { UserDocument } from "../model/User";
+import User from "../model/User";
+// ANDREA'S DEMO CODE
 
-// services: async function
-// talk to database
-// methods: find();
-
-const getAllUser = async () => {
-  // find: methods by mongoose
+export const getAllUser = async () => {
   return await User.find();
 };
 

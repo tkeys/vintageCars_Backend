@@ -1,5 +1,7 @@
 import express from "express";
 
+// ANDREA'S DEMO CODE
+
 import {
   getAllProducts,
   createProduct,

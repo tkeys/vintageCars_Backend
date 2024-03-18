@@ -1,5 +1,6 @@
-import express, { Request, Response } from "express";
+import { Request, Response } from "express";
 
+// ANDREA'S DEMO CODE
 import userServices from "../services/users";
 
 export async function getAllUsers(_: Request, response: Response) {
@@ -7,7 +8,3 @@ export async function getAllUsers(_: Request, response: Response) {
   console.log(userList, "user");
   response.status(200).json(userList);
 }
-
-// get user by id
-// req.params
-// response
