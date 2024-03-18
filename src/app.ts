@@ -1,4 +1,5 @@
 import express from "express";
+import "dotenv/config";
 
 import carsRouter from "./routers/carsRouter";
 import authRouter from "./routers/authRouter";
