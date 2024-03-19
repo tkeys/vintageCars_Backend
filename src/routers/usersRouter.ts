@@ -21,7 +21,7 @@ router.get('/:id', (request: Request, response: Response) => {
   if (user) {
     response.status(200).json({
       data: user,
-      message: 'user found successfully',
+      message: 'user found successfully!',
       status: 'success',
     });
   } else {
