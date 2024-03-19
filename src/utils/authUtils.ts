@@ -109,10 +109,10 @@ export function extractPropertyFromJwt<T extends DecodedJwtPayload>(
 }
 
 export function sanitizeUserData(
-  user: UserData
+  user: UserDocument
 ): Omit<UserData, "password" | "hashedPassword"> {
   const sanitizedUser: Omit<UserData, "password" | "hashedPassword"> = {
-    id: user.id,
+    id: user._id,
     email: user.email,
     userName: user.userName,
     firstName: user.firstName,

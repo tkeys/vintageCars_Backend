@@ -9,7 +9,8 @@ export async function registerUserHandler(
 ) {
   try {
     const userFromRequestBody = request.body as UserData;
-    const sanitizedUser = await authService.registerUser(userFromRequestBody);
+    const registeredUser = await authService.registerUser(userFromRequestBody);
+    const sanitizedUser = sanitizeUserData(registeredUser);
 
     response.status(201).json({
       status: "success",

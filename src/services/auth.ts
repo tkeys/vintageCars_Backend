@@ -1,4 +1,4 @@
-import User from "../model/User";
+import User, { UserDocument } from "../model/User";
 import { UserData } from "../types/UserData";
 import {
   isUserNameUnique,
@@ -28,7 +28,7 @@ async function registerUser(userData: UserData) {
   const newUser = new User(userData);
   await newUser.save();
 
-  return sanitizeUserData(userData);
+  return newUser;
 }
 
 export async function loginUser(
@@ -58,7 +58,9 @@ export async function loginUser(
   }
 }
 
-export async function verifyToken(jwtToken: string): Promise<UserData | null> {
+export async function verifyToken(
+  jwtToken: string
+): Promise<UserDocument | null> {
   try {
     const decodedToken = verifyJwtToken(jwtToken);
 
