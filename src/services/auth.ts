@@ -9,8 +9,6 @@ import {
   verifyJwtToken,
   extractPropertyFromJwt,
 } from "../utils/authUtils";
-import { Role } from "../types/Role";
-import { sanitizeUserData } from "../utils/authUtils";
 import { JwtProperty } from "../types/JwtProperty";
 
 async function registerUser(userData: UserData) {
