@@ -29,10 +29,12 @@ const UserSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: Object.values(Role),
+    default: Role.Customer,
     required: true,
   },
   banned: {
     type: Boolean,
+    default: false,
     required: true,
   },
 });

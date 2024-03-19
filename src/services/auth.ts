@@ -25,9 +25,6 @@ async function registerUser(userData: UserData) {
   const hashedPassword = await hashPassword(userData.password!);
   userData.hashedPassword = hashedPassword;
 
-  userData.role = Role.Customer;
-  userData.banned = false;
-
   const newUser = new User(userData);
   await newUser.save();
 
