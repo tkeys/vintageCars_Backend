@@ -4,10 +4,7 @@ import { User } from '../types/User';
 
 const router = express.Router();
 
-// query
-// base url:"http://localhost:8080/api/v1/users/"
 router.get('/', (request: Request, response: Response) => {
-  console.log(request);
   response.status(200).json({
     data: users,
     message: 'Users retrieved succcessfully',

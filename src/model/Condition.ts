@@ -1,9 +1,7 @@
-import mongoose, { Document, model } from 'mongoose';
-import { Condition } from '../types/Condition';
+import mongoose, { Document } from "mongoose";
+import { ConditionData } from "../types/ConditionData";
 
-const Schema = mongoose.Schema;
-
-export type ConditionDocument = Condition & Document;
+export type ConditionDocument = Document & ConditionData;
 
 const ConditionSchema = new mongoose.Schema({
   name: {
@@ -13,4 +11,4 @@ const ConditionSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model<ConditionDocument>('Condition', ConditionSchema);
+export default mongoose.model<ConditionDocument>("Conditions", ConditionSchema);

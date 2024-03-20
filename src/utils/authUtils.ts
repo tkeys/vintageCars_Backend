@@ -4,9 +4,13 @@ import Joi from "joi";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
 
-import { User } from "../types/User";
+import { JwtProperty } from "../types/JwtProperty";
+import { DecodedJwtPayload } from "../types/DecodedJwtPayload";
+import User, { UserDocument } from "../model/User";
+import { UserData } from "../types/UserData";
 
 const saltRounds = 10;
+const secret = crypto.randomBytes(32).toString("hex");
 
 export async function hashPassword(password: string): Promise<string> {
   try {
@@ -21,12 +25,26 @@ export async function hashPassword(password: string): Promise<string> {
   }
 }
 
-export function isUserNameUnique(userName: string, users: User[]): boolean {
-  return !users.some((user) => user.userName === userName);
+export async function isUserNameUnique(userName: string): Promise<boolean> {
+  try {
+    const existingUser: UserDocument | null = await User.findOne({
+      userName,
+    });
+    return !existingUser;
+  } catch (error) {
+    console.error("Error checking username uniqueness:", error);
+    throw error;
+  }
 }
 
-export function isEmailUnique(email: string, users: User[]): boolean {
-  return !users.some((user) => user.email === email);
+export async function isEmailAvailable(email: string): Promise<boolean> {
+  try {
+    const existingUser: UserDocument | null = await User.findOne({ email });
+    return !existingUser;
+  } catch (error) {
+    console.error("Error checking email availability:", error);
+    throw error;
+  }
 }
 
 export function validateRequestBody(schema: Joi.ObjectSchema) {
@@ -49,9 +67,7 @@ export async function comparePasswords(
   return await bcrypt.compare(password, hashedPassword);
 }
 
-export function generateAuthToken(user: User): string {
-  const secret = crypto.randomBytes(32).toString("hex");
-
+export function generateAuthToken(user: UserData): string {
   const token = jwt.sign(
     { userId: user.id, userRole: user.role, isUserBanned: user.banned },
     secret,
@@ -60,4 +76,49 @@ export function generateAuthToken(user: User): string {
     }
   );
   return token;
+}
+
+export function extractJwtToken(authorizationHeader: string): string | null {
+  if (!authorizationHeader) {
+    return null;
+  }
+
+  const tokenParts = authorizationHeader.split(" ");
+  if (tokenParts.length !== 2 || tokenParts[0] !== "Bearer") {
+    return null;
+  }
+
+  return tokenParts[1];
+}
+
+export function verifyJwtToken(jwtToken: string): DecodedJwtPayload | null {
+  try {
+    const decodedToken = jwt.verify(jwtToken, secret);
+    return decodedToken as DecodedJwtPayload;
+  } catch (error) {
+    console.error("Error verifying token:", error);
+    return null;
+  }
+}
+
+export function extractPropertyFromJwt<T extends DecodedJwtPayload>(
+  decodedToken: T,
+  property: JwtProperty
+): DecodedJwtPayload[keyof DecodedJwtPayload] | undefined {
+  return decodedToken[property];
+}
+
+export function sanitizeUserData(
+  user: UserDocument
+): Omit<UserData, "password" | "hashedPassword"> {
+  const sanitizedUser: Omit<UserData, "password" | "hashedPassword"> = {
+    id: user._id,
+    email: user.email,
+    userName: user.userName,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    role: user.role,
+    banned: user.banned,
+  };
+  return sanitizedUser;
 }
