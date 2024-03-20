@@ -6,6 +6,7 @@ export type ConditionDocument = Document & ConditionData;
 const ConditionSchema = new mongoose.Schema({
   name: {
     type: String,
+    enum: Object.values(Condition),
     required: true,
   },
 });
