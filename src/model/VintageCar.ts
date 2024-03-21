@@ -1,15 +1,12 @@
 import mongoose, { Document } from 'mongoose';
-import { VintageCar } from '../types/VintageCar';
-import ConditionSchema from './Condition';
-import BrandSchema from './Brand';
+import { VintageCar } from "../types/VintageCar";
 
 export type VintageCarDocument = VintageCar & Document;
 
 const VintageCarSchema = new mongoose.Schema({
-  //brand: [BrandSchema],
   brand: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Brand',
+    ref: "Brand",
     required: true,
   },
   model: {
@@ -19,11 +16,10 @@ const VintageCarSchema = new mongoose.Schema({
   conditions: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Condition',
+      ref: "Condition",
       required: true,
     },
   ],
-  /*  conditions: [ ConditionSchema ], */
   description: {
     type: String,
     required: true,

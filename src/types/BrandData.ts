@@ -1,4 +1,9 @@
-export enum Brand {
+export interface BrandData {
+  id: string;
+  brand: BrandName;
+}
+
+export enum BrandName {
   Ford = "Ford",
   Chevrolet = "Chevrolet",
   Porsche = "Porsche",

@@ -1,12 +1,12 @@
 import mongoose, { Document } from 'mongoose';
-import { Brand } from '../types/Brand';
+import { BrandData, BrandName } from "../types/BrandData";
 
-export type BrandDocument = Brand & Document;
+export type BrandDocument = BrandData & Document;
 
 const BrandSchema = new mongoose.Schema({
   name: {
     type: String,
-    enum: Object.values(Brand),
+    enum: Object.values(BrandName),
     required: true,
   },
 });
