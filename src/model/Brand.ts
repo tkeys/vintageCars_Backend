@@ -1,5 +1,5 @@
 import mongoose, { Document } from 'mongoose';
-import { BrandData, BrandName } from "../types/BrandData";
+import { BrandData, BrandName } from '../types/BrandData';
 
 export type BrandDocument = BrandData & Document;
 
