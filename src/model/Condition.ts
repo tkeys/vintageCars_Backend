@@ -1,4 +1,5 @@
 import mongoose, { Document } from 'mongoose';
+
 import { ConditionData, CarCondition } from '../types/ConditionData';
 
 export type ConditionDocument = Document & ConditionData;
