@@ -1,11 +1,12 @@
-import express, { Request, Response } from 'express';
-import { VintageCar } from '../types/VintageCar'; */
-import { createCar, deleteCar, getCars } from '../controllers/carsController';
+import express from 'express';
+
+//import { createCar, deleteCar, getCars } from '../controllers/carsController';
+import { getAllCars } from '../controllers/carsController';
 
 const router = express.Router();
 
-router.get('/', getCars);
-router.post('/', createCar);
-router.delete('/:carId', deleteCar);
+router.get('/', getAllCars);
+/* router.post('/', createCar);
+router.delete('/:carId', deleteCar); */
 
 export default router;

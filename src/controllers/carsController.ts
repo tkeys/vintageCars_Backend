@@ -1,8 +1,7 @@
 import express, { Request, Response } from 'express';
-import { vintageCars } from '../data/mockCars';
-import { VintageCar } from '../types/VintageCar';
 
-let vintageCarsInServer = [...vintageCars];
+import vintageCarServices from '../services/vintageCars';
+import VintageCar from '../model/VintageCar';
 
 // query
 // http://localhost:8080/api/v1/cars?model=Generic&&conditions=Excellent
@@ -10,7 +9,17 @@ let vintageCarsInServer = [...vintageCars];
 // search
 // filter
 
-export function getCars(request: Request, response: Response) {
+export async function getAllCars(req: Request, res: Response) {
+  const cars = await vintageCarServices.getAllCars();
+  res.status(200).json({
+    data: cars,
+    message: 'cars retrieved successfully',
+    status: 'success',
+  });
+}
+
+/* export async function getCars(request: Request, response: Response) {
+  const vintageCarsInServercars = await vintageCarsServices.getCars();
   if (request.query.model) {
     const modelQuery = request.query.model as string;
     const filteredCars = vintageCarsInServer.filter((car) =>
@@ -26,7 +35,7 @@ export function getCars(request: Request, response: Response) {
   else if (request.query.conditions) {
     const conditionsQuery = request.query.conditions as string;
     const filteredCars = vintageCarsInServer.filter((car) =>
-      car.conditions.some((condition) =>
+      car.conditions.some((condition: string) =>
         condition.toLowerCase().includes(conditionsQuery.toLowerCase())
       )
     );
@@ -75,3 +84,4 @@ export function deleteCar(request: Request, response: Response) {
     message: 'new vintage car added successfully',
   });
 }
+ */
