@@ -6,12 +6,24 @@ import BrandSchema from './Brand';
 export type VintageCarDocument = VintageCar & Document;
 
 const VintageCarSchema = new mongoose.Schema({
-  brand: [BrandSchema],
+  //brand: [BrandSchema],
+  brand: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Brand',
+    required: true,
+  },
   model: {
     type: String,
     required: true,
   },
-  conditions: [ConditionSchema],
+  conditions: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Condition',
+      required: true,
+    },
+  ],
+  /*  conditions: [ ConditionSchema ], */
   description: {
     type: String,
     required: true,
@@ -27,6 +39,6 @@ const VintageCarSchema = new mongoose.Schema({
 });
 
 export default mongoose.model<VintageCarDocument>(
-  'VintageCar',
+  'VintageCars',
   VintageCarSchema
 );

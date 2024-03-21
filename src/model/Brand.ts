@@ -11,4 +11,4 @@ const BrandSchema = new mongoose.Schema({
   },
 });
 
-export default mongoose.model<BrandDocument>('Condition', BrandSchema);
+export default mongoose.model<BrandDocument>('Brands', BrandSchema);
