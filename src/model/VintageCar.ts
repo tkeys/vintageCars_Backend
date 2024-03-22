@@ -1,7 +1,7 @@
-import mongoose, { Document } from 'mongoose';
-import { VintageCar } from "../types/VintageCar";
+import mongoose, { Document } from "mongoose";
+import { VintageCarData } from "../types/VintageCarData";
 
-export type VintageCarDocument = VintageCar & Document;
+export type VintageCarDocument = VintageCarData & Document;
 
 const VintageCarSchema = new mongoose.Schema({
   brand: {
@@ -35,6 +35,6 @@ const VintageCarSchema = new mongoose.Schema({
 });
 
 export default mongoose.model<VintageCarDocument>(
-  'VintageCars',
+  "VintageCars",
   VintageCarSchema
 );
