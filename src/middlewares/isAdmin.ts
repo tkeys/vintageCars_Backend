@@ -1,30 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import {
-  extractJwtToken,
-  verifyJwtToken,
-  extractPropertyFromJwt,
-} from "../utils/authUtils";
+import { extractPropertyFromJwt, checkAuthorization } from "../utils/authUtils";
 import { JwtProperty } from "../types/JwtProperty";
 
 export function isAdmin(req: Request, res: Response, next: NextFunction) {
-  const authorizationHeader = req.headers.authorization;
-
   try {
-    if (!authorizationHeader) {
-      throw new Error("Authorization header is missing");
-    }
-
-    const jwt = extractJwtToken(authorizationHeader);
-
-    if (!jwt) {
-      throw new Error("Invalid JWT token");
-    }
-
-    const decodedToken = verifyJwtToken(jwt);
-
-    if (!decodedToken) {
-      throw new Error("Invalid or expired JWT token");
-    }
+    const decodedToken = checkAuthorization(req);
 
     const userRole = extractPropertyFromJwt(decodedToken, JwtProperty.UserRole);
 
