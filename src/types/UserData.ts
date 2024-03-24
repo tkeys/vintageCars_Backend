@@ -1,3 +1,4 @@
+import { OrderListData } from "./OrderData";
 import { Role } from "./Role";
 
 export interface UserData {
@@ -10,4 +11,5 @@ export interface UserData {
   lastName: string;
   role: Role;
   banned: boolean;
+  orderHistory: OrderListData[];
 }

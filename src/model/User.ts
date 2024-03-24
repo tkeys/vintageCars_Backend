@@ -37,6 +37,12 @@ const UserSchema = new mongoose.Schema({
     default: false,
     required: true,
   },
+  orderHistory: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "OrderList",
+    },
+  ],
 });
 
 export default mongoose.model<UserDocument>("Users", UserSchema);

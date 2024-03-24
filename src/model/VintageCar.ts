@@ -3,7 +3,7 @@ import { VintageCarData } from "../types/VintageCarData";
 
 export type VintageCarDocument = VintageCarData & Document;
 
-const VintageCarSchema = new mongoose.Schema({
+export const VintageCarSchema = new mongoose.Schema({
   brand: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Brand",
@@ -35,6 +35,6 @@ const VintageCarSchema = new mongoose.Schema({
 });
 
 export default mongoose.model<VintageCarDocument>(
-  "VintageCars",
+  "VintageCar",
   VintageCarSchema
 );
