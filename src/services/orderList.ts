@@ -10,9 +10,9 @@ export async function getOrderList(orderListId: string) {
           { path: "brand", select: { _id: 0 } },
           { path: "conditions", select: { _id: 0 } },
         ],
-        select: { _id: 0 },
+        select: { _id: 0, __v: 0 },
       },
-      select: { _id: 0, userId: 0 },
+      select: { _id: 0 },
     });
 
     if (orderList) {

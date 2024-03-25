@@ -1,6 +1,5 @@
 export interface OrderData {
   id: string;
-  userId: string;
   carId: string;
   quantity: number;
   orderSum: number;
