@@ -18,3 +18,5 @@ export const OrderSchema = new mongoose.Schema({
     required: true,
   },
 });
+
+export default mongoose.model<OrderDocument>("Order", OrderSchema);

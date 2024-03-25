@@ -1,8 +1,12 @@
 import express from "express";
-import { getOrderListHandler } from "../controllers/orderList";
+import {
+  addOrderToOrderListHandler,
+  getOrderListHandler,
+} from "../controllers/orderList";
 
 const ordersRouter = express.Router();
 
 ordersRouter.get("/:orderListId", getOrderListHandler);
+ordersRouter.post("/:orderListId", addOrderToOrderListHandler);
 
 export default ordersRouter;
