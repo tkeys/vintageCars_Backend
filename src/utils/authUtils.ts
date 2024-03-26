@@ -8,6 +8,7 @@ import { JwtProperty } from "../types/JwtProperty";
 import { DecodedJwtPayload } from "../types/DecodedJwtPayload";
 import User, { UserDocument } from "../model/User";
 import { UserData } from "../types/UserData";
+import { Role } from "../types/Role";
 
 const saltRounds = 10;
 const secret = crypto.randomBytes(32).toString("hex");
@@ -108,6 +109,32 @@ export function extractPropertyFromJwt<T extends DecodedJwtPayload>(
   return decodedToken[property];
 }
 
+export function checkAuthorization(req: Request) {
+  const authorizationHeader = req.headers.authorization;
+
+  if (!authorizationHeader) {
+    throw new Error("Authorization header is missing");
+  }
+
+  const jwtToken = extractJwtToken(authorizationHeader);
+
+  if (!jwtToken) {
+    throw new Error("Invalid JWT token");
+  }
+
+  const decodedToken = verifyJwtToken(jwtToken);
+
+  if (!decodedToken) {
+    throw new Error("Invalid or expired JWT token");
+  }
+
+  if (decodedToken.userRole !== Role.Admin && decodedToken.isUserBanned) {
+    throw new Error("You are banned, please contact an admin.");
+  }
+
+  return decodedToken;
+}
+
 export function sanitizeUserData(
   user: UserDocument
 ): Omit<UserData, "password" | "hashedPassword"> {
@@ -119,6 +146,7 @@ export function sanitizeUserData(
     lastName: user.lastName,
     role: user.role,
     banned: user.banned,
+    orderHistory: user.orderHistory,
   };
   return sanitizedUser;
 }

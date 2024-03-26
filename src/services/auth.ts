@@ -37,7 +37,7 @@ export async function loginUser(
     const existingUser = await User.findOne({ email });
 
     if (!existingUser) {
-      return null;
+      throw new Error("User not found");
     }
 
     const passwordMatch = await comparePasswords(
