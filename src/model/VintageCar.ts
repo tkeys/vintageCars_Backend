@@ -34,6 +34,7 @@ const VintageCarSchema = new mongoose.Schema({
   },
 });
 
+VintageCarSchema.index({ model: "text" });
 export default mongoose.model<VintageCarDocument>(
   "VintageCars",
   VintageCarSchema
