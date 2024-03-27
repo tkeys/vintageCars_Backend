@@ -1,7 +1,7 @@
 import { ObjectId } from "mongoose";
 import OrderList, { OrderListDocument } from "../model/OrderList";
 import VintageCar from "../model/VintageCar";
-import { OrderData } from "../types/OrderData";
+import { OrderData, OrderListData } from "../types/OrderData";
 import Order, { OrderDocument } from "../model/Order";
 
 export async function validateOrderSum(orderData: OrderData): Promise<boolean> {
@@ -31,16 +31,18 @@ export async function findOrderListById(
   return orderList;
 }
 
-export function sanitizeOrderList(orderList: OrderListDocument): {
-  orders: OrderData[];
-} {
-  const { orders } = orderList.toObject();
-  return orders;
+export function sanitizeOrderList(orderList: OrderListDocument): OrderListData {
+  const orders = orderList.orders || [];
+
+  const sanitizedOrders = orders.map((order: any) => sanitizeOrder(order));
+
+  return { id: orderList._id, orders: sanitizedOrders };
 }
 
-export function sanitizeOrder(order: OrderDocument): Omit<OrderData, "id"> {
+export function sanitizeOrder(order: OrderDocument): OrderData {
   const { _id, __v, ...sanitizedOrder } = order.toObject();
   return {
+    id: _id,
     carId: sanitizedOrder.carId,
     quantity: sanitizedOrder.quantity,
     orderSum: sanitizedOrder.orderSum,

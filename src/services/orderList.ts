@@ -15,7 +15,6 @@ async function getOrderList(orderListId: string) {
         ],
         select: { _id: 0, __v: 0 },
       },
-      select: { _id: 0, __v: 0 },
     });
 
     if (orderList) {
@@ -47,4 +46,31 @@ async function addOrderToOrderList(orderListId: string, orderData: OrderData) {
   }
 }
 
-export default { getOrderList, addOrderToOrderList };
+async function deleteOrderFromOrderList(orderListId: string, orderId: string) {
+  try {
+    const existingOrderList = await OrderList.findById(orderListId);
+
+    if (!existingOrderList) {
+      throw new Error("Order list not found");
+    }
+
+    const updatedOrderList = await OrderList.findOneAndUpdate(
+      { _id: orderListId },
+      { $pull: { orders: orderId } },
+      { $new: true }
+    );
+
+    if (!updatedOrderList) {
+      throw new Error("Order not present in the list");
+    }
+
+    return {
+      status: "success",
+      message: `Order ${orderId} deleted from Order list ${orderListId}`,
+    };
+  } catch (error) {
+    throw error;
+  }
+}
+
+export default { getOrderList, addOrderToOrderList, deleteOrderFromOrderList };
