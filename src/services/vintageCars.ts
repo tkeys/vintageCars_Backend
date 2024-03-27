@@ -9,14 +9,30 @@ const getAllCars = async (
   minPrice: number,
   maxPrice: number
 ): Promise<VintageCarDocument[]> => {
-  return VintageCar.find(/* {
-    model: { $regex: searchQuery },
-    price: { $gte: minPrice, $lte: maxPrice },
-  } */)
-    .sort({ price: -1, year: -1, brand: 1, conditions: 1 })
-    .limit(limit)
-    .skip(offset);
-
+  if (searchQuery) {
+    return VintageCar.find({
+      model: { $regex: searchQuery },
+    })
+      .sort({ price: -1, year: -1, brand: 1, conditions: 1 })
+      .limit(limit)
+      .skip(offset)
+      .populate({ path: "brand", select: { _id: 0 } })
+      .populate({ path: "conditions", select: { _id: 0 } })
+      .select({ _id: 0 });
+  } else {
+    return VintageCar.find()
+      .sort({
+        price: -1,
+        year: -1,
+        brand: 1,
+        conditions: 1,
+      })
+      .limit(limit)
+      .skip(offset)
+      .populate({ path: "brand", select: { _id: 0 } })
+      .populate({ path: "conditions", select: { _id: 0 } })
+      .select({ _id: 0 });
+  }
   /* const allCars = await VintageCar.find()
 
     .sort({ price: -1, year: -1, brand: 1, conditions: 1 })
@@ -40,7 +56,10 @@ const createCar = async (
 };
 
 const getCarById = async (id: string): Promise<VintageCarDocument> => {
-  const foundCar = await VintageCar.findById(id);
+  const foundCar = await VintageCar.findById(id)
+    .populate({ path: "brand", select: { _id: 0 } })
+    .populate({ path: "conditions", select: { _id: 0 } })
+    .select({ _id: 0 });
   if (foundCar) {
     return foundCar;
   }

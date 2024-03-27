@@ -13,16 +13,17 @@ export async function getAllCars(_req: Request, res: Response) {
   try {
     const limit = parseInt(_req.query.limit as string);
     const offset = parseInt(_req.query.offset as string);
+
     const searchQuery = _req.query.searchQuery as string;
 
     const minPrice = parseInt(_req.query.minPrice as string);
     const maxPrice = parseInt(_req.query.maxPrice as string);
     const totalCars = await VintageCar.find().countDocuments();
-    console.log("limit", limit);
+    /* console.log("limit", limit);
     console.log("offset", offset);
     console.log("searchQuery", searchQuery);
     console.log("minPrice", minPrice);
-    console.log("maxPrice", maxPrice);
+    console.log("maxPrice", maxPrice); */
     const cars = await vintageCarServices.getAllCars(
       limit,
       offset,
