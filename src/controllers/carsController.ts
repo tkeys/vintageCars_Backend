@@ -9,21 +9,17 @@ import {
 } from "../errors/ApiError";
 import mongoose from "mongoose";
 
-export async function getAllCars(_req: Request, res: Response) {
+export async function getAllCars(req: Request, res: Response) {
   try {
-    const limit = parseInt(_req.query.limit as string);
-    const offset = parseInt(_req.query.offset as string);
+    const limit = parseInt(req.query.limit as string);
+    const offset = parseInt(req.query.offset as string);
 
-    const searchQuery = _req.query.searchQuery as string;
+    const searchQuery = req.query.searchQuery as string;
 
-    const minPrice = parseInt(_req.query.minPrice as string);
-    const maxPrice = parseInt(_req.query.maxPrice as string);
+    const minPrice = parseInt(req.query.minPrice as string);
+    const maxPrice = parseInt(req.query.maxPrice as string);
     const totalCars = await VintageCar.find().countDocuments();
-    /* console.log("limit", limit);
-    console.log("offset", offset);
-    console.log("searchQuery", searchQuery);
-    console.log("minPrice", minPrice);
-    console.log("maxPrice", maxPrice); */
+
     const cars = await vintageCarServices.getAllCars(
       limit,
       offset,

@@ -33,20 +33,6 @@ const getAllCars = async (
       .populate({ path: "conditions", select: { _id: 0 } })
       .select({ _id: 0 });
   }
-  /* const allCars = await VintageCar.find()
-
-    .sort({ price: -1, year: -1, brand: 1, conditions: 1 })
-    .limit(limit)
-    .skip(offset)
-    .find()
-
-    .exec();
-
-  if (allCars) {
-    return allCars;
-  }
-
-  throw new NotFoundError(""); */
 };
 
 const createCar = async (
