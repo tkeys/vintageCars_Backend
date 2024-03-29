@@ -1,7 +1,12 @@
+import mongoose, { Types } from "mongoose";
 import Order, { OrderDocument } from "../model/Order";
 import OrderList, { OrderListDocument } from "../model/OrderList";
 import { OrderData } from "../types/OrderData";
-import { sanitizeOrder, sanitizeOrderList } from "../utils/ordersUtils";
+import {
+  findOrderListById,
+  sanitizeOrder,
+  sanitizeOrderList,
+} from "../utils/ordersUtils";
 
 async function getOrderList(orderListId: string) {
   try {
@@ -48,11 +53,7 @@ async function addOrderToOrderList(orderListId: string, orderData: OrderData) {
 
 async function deleteOrderFromOrderList(orderListId: string, orderId: string) {
   try {
-    const existingOrderList = await OrderList.findById(orderListId);
-
-    if (!existingOrderList) {
-      throw new Error("Order list not found");
-    }
+    await findOrderListById(orderListId);
 
     const updatedOrderList = await OrderList.findOneAndUpdate(
       { _id: orderListId },
@@ -73,4 +74,46 @@ async function deleteOrderFromOrderList(orderListId: string, orderId: string) {
   }
 }
 
-export default { getOrderList, addOrderToOrderList, deleteOrderFromOrderList };
+async function updateOrderFromOrderList(
+  orderListId: string,
+  orderId: string,
+  updatedOrderData: OrderData
+) {
+  try {
+    const existingOrderList = await findOrderListById(orderListId);
+
+    const existingOrders =
+      existingOrderList.orders as mongoose.Types.ObjectId[];
+    const orderIdAsObjectId = new mongoose.Types.ObjectId(orderId);
+
+    const orderToUpdateIndex = existingOrders.findIndex((order) =>
+      order.equals(orderIdAsObjectId)
+    );
+
+    if (orderToUpdateIndex === -1) {
+      throw new Error("Order not found in order list");
+    }
+
+    const updatedOrder = await Order.findByIdAndUpdate(
+      orderId,
+      { $set: updatedOrderData },
+      { new: true }
+    );
+
+    if (!updatedOrder) {
+      throw new Error("Failed to update order");
+    }
+
+    return sanitizeOrder(updatedOrder);
+  } catch (error) {
+    console.error("Error updating order:", error);
+    throw new Error("Failed to update order from order list");
+  }
+}
+
+export default {
+  getOrderList,
+  addOrderToOrderList,
+  deleteOrderFromOrderList,
+  updateOrderFromOrderList,
+};

@@ -79,3 +79,26 @@ export async function deleteOrderFromOrderListHandler(
     res.status(500).json({ status: "error", message: "Internal server error" });
   }
 }
+
+export async function updateOrderFromOrderListHandler(
+  req: Request,
+  res: Response
+) {
+  try {
+    const { orderListId, orderId } = req.params;
+    const updatedOrderData = req.body;
+    const updatedOrder = await orderListService.updateOrderFromOrderList(
+      orderListId,
+      orderId,
+      updatedOrderData
+    );
+    res.status(200).json({
+      status: "success",
+      data: updatedOrder,
+      message: `Order ${orderId} updated from Order list ${orderListId}.`,
+    });
+  } catch (error) {
+    console.error("Error updating order in order list:", error);
+    res.status(500).json({ status: "error", message: "Internal server error" });
+  }
+}

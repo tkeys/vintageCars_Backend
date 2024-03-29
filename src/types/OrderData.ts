@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { VintageCarData } from "./VintageCarData";
 
 export interface OrderData {
@@ -9,5 +10,5 @@ export interface OrderData {
 
 export interface OrderListData {
   id: string;
-  orders: OrderData[];
+  orders: OrderData[] | mongoose.Types.ObjectId[];
 }
