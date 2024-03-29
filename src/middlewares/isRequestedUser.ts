@@ -1,26 +1,31 @@
 import { Request, Response, NextFunction } from "express";
 import { checkAuthorization } from "../utils/authUtils";
-import { Role } from "../types/Role";
 
-export function isAdmin(req: Request, res: Response, next: NextFunction) {
+export function isRequestedUser(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  const { userId } = req.params;
+
   try {
     const decodedToken = checkAuthorization(req);
 
-    if (decodedToken.userRole === Role.Admin) {
+    if (decodedToken.userId === userId) {
       next();
     } else {
       throw new Error("User is not authorized");
     }
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Error in isAdmin middleware:", error);
+      console.error("Error in isRequestedUser middleware:", error);
       return res.status(403).json({
         status: "fail",
         message:
           error.message || "You are not authorized to perform this action.",
       });
     } else {
-      console.error("Unknown error in isAdmin middleware:", error);
+      console.error("Unknown error in isRequiredUser middleware:", error);
       return res.status(500).json({
         status: "error",
         message: "Internal server error",

@@ -1,8 +1,34 @@
 import User from "../model/User";
-// ANDREA'S DEMO CODE
+import { generateAuthToken, hashPassword } from "../utils/authUtils";
+import { generateNewPassword } from "../utils/usersUtils";
 
-export const getAllUser = async () => {
-  return await User.find();
+async function recoverPassword(
+  userId: string
+): Promise<{ newPassword: string; token: string }> {
+  const newPassword = generateNewPassword();
+
+  const hashedPassword = await hashPassword(newPassword);
+
+  try {
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { hashedPassword: hashedPassword },
+      { new: true }
+    );
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const token = generateAuthToken(user);
+
+    return { newPassword, token };
+  } catch (error) {
+    console.error("Failed to recover password:", error);
+    throw new Error("Failed to recover password");
+  }
+}
+
+export default {
+  recoverPassword,
 };
-
-export default { getAllUser };
