@@ -53,7 +53,7 @@ export async function createCar(req: Request, res: Response) {
     });
   } catch (error) {
     res.status(500).json({
-      message: "Internal server error",
+      message: error,
       status: "error",
     });
   }
@@ -99,7 +99,7 @@ export async function updateCarById(req: Request, res: Response) {
   } catch (error) {
     if (error) {
       res.status(500).json({
-        message: "Internal server error",
+        message: error,
         status: "error",
       });
     }
@@ -117,7 +117,7 @@ export async function deleteCarById(req: Request, res: Response) {
   } catch (error) {
     if (error) {
       res.status(500).json({
-        message: "Internal server error",
+        message: error,
       });
     }
   }

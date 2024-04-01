@@ -11,7 +11,7 @@ const getAllCars = async (
 ): Promise<VintageCarDocument[]> => {
   if (searchQuery) {
     return VintageCar.find({
-      model: { $regex: searchQuery },
+      model: { $regex: searchQuery, $options: "i" },
     })
       .sort({ price: -1, year: -1, brand: 1, conditions: 1 })
       .limit(limit)
@@ -54,6 +54,7 @@ const getCarById = async (id: string): Promise<VintageCarDocument> => {
 const updateCarById = async (id: string, newInfo: VintageCarData) => {
   const updatedCar = await VintageCar.findByIdAndUpdate(id, newInfo, {
     new: true,
+    runValidators: true,
   });
   if (updatedCar) {
     return updatedCar;
