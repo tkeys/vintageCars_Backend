@@ -2,11 +2,7 @@ import { Request, Response } from "express";
 
 import vintageCarServices from "../services/vintageCars";
 import VintageCar from "../model/VintageCar";
-import {
-  ForbiddenError,
-  InternalServerError,
-  NotFoundError,
-} from "../errors/ApiError";
+
 import mongoose from "mongoose";
 
 export async function getAllCars(req: Request, res: Response) {
@@ -34,7 +30,7 @@ export async function getAllCars(req: Request, res: Response) {
       status: "success",
     });
   } catch (error) {
-    if (error instanceof InternalServerError) {
+    if (error) {
       res.status(500).json({
         message: "Internal server error",
         status: "error",
@@ -68,7 +64,8 @@ export async function getCarById(req: Request, res: Response) {
       status: "success",
     });
   } catch (error) {
-    if (error instanceof NotFoundError) {
+    if (error) {
+      console.error(error);
       res.status(404).json({
         message: `car not found by id ${req.params.id}`,
         status: "error",

@@ -1,9 +1,3 @@
-import {
-  ForbiddenError,
-  InternalServerError,
-  NotFoundError,
-  UnauthorizedError,
-} from "../errors/ApiError";
 import VintageCar, { VintageCarDocument } from "../model/VintageCar";
 import { VintageCarData } from "../types/VintageCarData";
 
@@ -55,7 +49,7 @@ const getCarById = async (id: string): Promise<VintageCarDocument> => {
   if (foundCar) {
     return foundCar;
   }
-  throw new NotFoundError("");
+  throw new Error("Car not found error");
 };
 const updateCarById = async (id: string, newInfo: VintageCarData) => {
   const updatedCar = await VintageCar.findByIdAndUpdate(id, newInfo, {
@@ -65,7 +59,7 @@ const updateCarById = async (id: string, newInfo: VintageCarData) => {
   if (updatedCar) {
     return updatedCar;
   }
-  throw new InternalServerError("");
+  throw new Error("Error updating car");
 };
 
 const deleteCarById = async (id: string) => {
@@ -73,7 +67,7 @@ const deleteCarById = async (id: string) => {
   if (deletedCar) {
     return deletedCar;
   }
-  throw new InternalServerError("Error deleting car");
+  throw new Error("Error deleting car");
 };
 
 export default {
