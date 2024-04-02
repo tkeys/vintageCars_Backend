@@ -10,6 +10,7 @@ import {
   extractPropertyFromJwt,
 } from "../utils/authUtils";
 import { JwtProperty } from "../types/JwtProperty";
+import OrderList from "../model/OrderList";
 
 async function registerUser(userData: UserData) {
   if (!isUserNameUnique(userData.userName)) {
@@ -22,6 +23,13 @@ async function registerUser(userData: UserData) {
 
   const hashedPassword = await hashPassword(userData.password!);
   userData.hashedPassword = hashedPassword;
+
+  const newOrderList = new OrderList({ orders: [] });
+  await newOrderList.save();
+
+  const orderListId = newOrderList._id;
+
+  userData.orderHistory = [orderListId];
 
   const newUser = new User(userData);
   await newUser.save();
