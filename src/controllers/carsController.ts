@@ -31,6 +31,7 @@ export async function getAllCars(req: Request, res: Response) {
     });
   } catch (error) {
     if (error) {
+      console.error("Error while fetching cars:", error);
       res.status(500).json({
         message: "Internal server error",
         status: "error",

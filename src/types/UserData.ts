@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { OrderListData } from "./OrderData";
 import { Role } from "./Role";
 
@@ -11,5 +12,9 @@ export interface UserData {
   lastName: string;
   role: Role;
   banned: boolean;
-  orderHistory: OrderListData[];
+  orderHistory: OrderListData[] | mongoose.Types.ObjectId[];
 }
+
+export type UserRegistrationData = Partial<
+  Omit<UserData, "id" | "hashedPassword" | "role" | "banned" | "orderHistory">
+>;
