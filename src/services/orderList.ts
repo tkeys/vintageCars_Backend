@@ -1,6 +1,6 @@
-import mongoose, { Types } from "mongoose";
-import Order, { OrderDocument } from "../model/Order";
-import OrderList, { OrderListDocument } from "../model/OrderList";
+import mongoose from "mongoose";
+import Order from "../model/Order";
+import OrderList from "../model/OrderList";
 import { OrderData } from "../types/OrderData";
 import {
   findOrderListById,

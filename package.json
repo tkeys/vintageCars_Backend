@@ -10,9 +10,11 @@
     "D": "^1.0.0",
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
+    "generate-password": "^1.7.1",
     "http": "^0.0.1-security",
     "joi": "^17.12.2",
     "jsonwebtoken": "^9.0.2",
+    "mongodb-memory-server": "^9.1.8",
     "mongoose": "^8.2.2",
     "nodemon": "^3.1.0",
     "ts-node": "^10.9.2",
@@ -21,9 +23,9 @@
   },
   "scripts": {
     "start": "node dist/server.js",
-    "dev": "nodemon --watch src/**/*.ts --exec ts-node src/server.ts",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec ts-node src/server.ts",
     "build": "tsc -p .",
-    "test": "jest --watchAll"
+    "test": "jest --runInBand --forceExit --detectOpenHandles --coverage --verbose false"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",

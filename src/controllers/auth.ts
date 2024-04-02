@@ -10,13 +10,16 @@ export async function registerUserHandler(
 ) {
   try {
     const userFromRequestBody = request.body as UserData;
-    const registeredUser = await authService.registerUser(userFromRequestBody);
-    const sanitizedUser = sanitizeUserData(registeredUser);
+    const { newUser, token } = await authService.registerUser(
+      userFromRequestBody
+    );
+    const sanitizedUser = sanitizeUserData(newUser);
 
     response.status(201).json({
       status: "success",
       message: "User registered successfully.",
       data: sanitizedUser,
+      token,
     });
   } catch (error) {
     console.error("Error registering user:", error);
