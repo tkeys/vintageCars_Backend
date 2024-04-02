@@ -1,5 +1,9 @@
 import User from "../model/User";
-import { generateAuthToken, hashPassword } from "../utils/authUtils";
+import {
+  comparePasswords,
+  generateAuthToken,
+  hashPassword,
+} from "../utils/authUtils";
 import { generateNewPassword } from "../utils/usersUtils";
 
 async function recoverPassword(
@@ -29,6 +33,33 @@ async function recoverPassword(
   }
 }
 
+async function changePassword(
+  email: string,
+  oldPassword: string,
+  newPassword: string
+): Promise<void> {
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  const isPasswordValid = await comparePasswords(
+    oldPassword,
+    user.hashedPassword
+  );
+
+  if (!isPasswordValid) {
+    throw new Error("Old password is incorrect");
+  }
+
+  const newPasswordHashed = await hashPassword(newPassword);
+
+  user.hashedPassword = newPasswordHashed;
+  await user.save();
+}
+
 export default {
   recoverPassword,
+  changePassword,
 };

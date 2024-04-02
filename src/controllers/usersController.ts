@@ -25,3 +25,19 @@ export async function recoverPasswordHandler(
     });
   }
 }
+
+export async function changePasswordHandler(req: Request, res: Response) {
+  const { email, oldPassword, newPassword } = req.body;
+
+  try {
+    await userService.changePassword(email, oldPassword, newPassword);
+    res
+      .status(200)
+      .json({ status: "success", message: "Password changed successfully" });
+  } catch (error) {
+    console.error("Error changing password:", error);
+    res
+      .status(500)
+      .json({ status: "error", message: "Error while changing password" });
+  }
+}
