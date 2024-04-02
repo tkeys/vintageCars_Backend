@@ -14,3 +14,7 @@ export interface UserData {
   banned: boolean;
   orderHistory: OrderListData[] | mongoose.Types.ObjectId[];
 }
+
+export type UserRegistrationData = Partial<
+  Omit<UserData, "id" | "hashedPassword" | "role" | "banned" | "orderHistory">
+>;

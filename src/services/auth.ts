@@ -34,7 +34,7 @@ async function registerUser(userData: UserData) {
   const newUser = new User(userData);
   await newUser.save();
 
-  return newUser;
+  return { newUser, token: generateAuthToken(newUser) };
 }
 
 export async function loginUser(
