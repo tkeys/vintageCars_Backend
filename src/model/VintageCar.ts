@@ -7,30 +7,32 @@ export const VintageCarSchema = new mongoose.Schema({
   brand: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Brand",
-    required: true,
+    required: [true, "Brand is required"],
   },
   model: {
     type: String,
-    required: true,
+    required: [true, "Model is required"],
   },
   conditions: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Condition",
-      required: true,
+      required: [true, "Condition is required"],
     },
   ],
   description: {
     type: String,
-    required: true,
+    required: [true, "Description is required"],
   },
   year: {
     type: Number,
     required: true,
+    min: [1900, "Year must be at least 1900"],
   },
   price: {
     type: Number,
-    required: true,
+    required: [true, "Price is required"],
+    min: [0, "Price cannot be negative"],
   },
 });
 

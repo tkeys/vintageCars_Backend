@@ -1,8 +1,8 @@
-import express from 'express';
-import 'dotenv/config';
+import express from "express";
+import "dotenv/config";
 
-import carsRouter from './routers/carsRouter';
-import authRouter from './routers/authRouter';
+import carsRouter from "./routers/carsRouter";
+import authRouter from "./routers/authRouter";
 import usersRouter from "./routers/usersRouter";
 
 const baseUrl = "/api/v1";
