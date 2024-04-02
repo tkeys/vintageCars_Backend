@@ -1,4 +1,9 @@
-import { ForbiddenError, NotFoundError } from "../errors/ApiError";
+import {
+  ForbiddenError,
+  InternalServerError,
+  NotFoundError,
+  UnauthorizedError,
+} from "../errors/ApiError";
 import VintageCar, { VintageCarDocument } from "../model/VintageCar";
 import { VintageCarData } from "../types/VintageCarData";
 
@@ -12,6 +17,7 @@ const getAllCars = async (
   if (searchQuery) {
     return VintageCar.find({
       model: { $regex: searchQuery, $options: "i" },
+      price: { $gte: minPrice, $lte: maxPrice },
     })
       .sort({ price: -1, year: -1, brand: 1, conditions: 1 })
       .limit(limit)
@@ -59,6 +65,7 @@ const updateCarById = async (id: string, newInfo: VintageCarData) => {
   if (updatedCar) {
     return updatedCar;
   }
+  throw new InternalServerError("");
 };
 
 const deleteCarById = async (id: string) => {
@@ -66,6 +73,7 @@ const deleteCarById = async (id: string) => {
   if (deletedCar) {
     return deletedCar;
   }
+  throw new InternalServerError("Error deleting car");
 };
 
 export default {

@@ -11,26 +11,26 @@ import mongoose from "mongoose";
 
 export async function getAllCars(req: Request, res: Response) {
   try {
-    const limit = parseInt(req.query.limit as string);
-    const offset = parseInt(req.query.offset as string);
+    const {
+      limit = 10,
+      offset = 0,
+      searchQuery = "",
+      minPrice = 0,
+      maxPrice = Infinity,
+    } = req.query;
 
-    const searchQuery = req.query.searchQuery as string;
-
-    const minPrice = parseInt(req.query.minPrice as string);
-    const maxPrice = parseInt(req.query.maxPrice as string);
     const totalCars = await VintageCar.find().countDocuments();
 
     const cars = await vintageCarServices.getAllCars(
-      limit,
-      offset,
-      searchQuery,
-      minPrice,
-      maxPrice
+      Number(limit),
+      Number(offset),
+      searchQuery as string,
+      Number(minPrice),
+      Number(maxPrice)
     );
     res.status(200).json({
       data: cars,
-      totalCars,
-      message: ` ${totalCars} total number of cars retrieved successfully`,
+      message: "cars retrieved successfully",
       status: "success",
     });
   } catch (error) {
@@ -52,8 +52,9 @@ export async function createCar(req: Request, res: Response) {
       status: "success",
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({
-      message: error,
+      message: "Internal server Error",
       status: "error",
     });
   }
@@ -98,8 +99,9 @@ export async function updateCarById(req: Request, res: Response) {
     });
   } catch (error) {
     if (error) {
+      console.error(error);
       res.status(500).json({
-        message: error,
+        message: "internal server Error",
         status: "error",
       });
     }
@@ -116,8 +118,9 @@ export async function deleteCarById(req: Request, res: Response) {
     });
   } catch (error) {
     if (error) {
+      console.error(error);
       res.status(500).json({
-        message: error,
+        message: "Internal server error",
       });
     }
   }
