@@ -1,7 +1,7 @@
-import express from 'express';
-import ordersRouter from './ordersRouter';
-import { hasPermission } from '../middlewares/hasPermission';
-import { isRequestedUser } from '../middlewares/isRequestedUser';
+import express from "express";
+import ordersRouter from "./ordersRouter";
+import { hasPermission } from "../middlewares/hasPermission";
+import { isRequestedUser } from "../middlewares/isRequestedUser";
 import {
   banUserHandler,
   changePasswordHandler,
@@ -10,31 +10,31 @@ import {
   deleteUser,
   getUserByIdHandler,
   updateUser,
-} from '../controllers/usersController';
+} from "../controllers/usersController";
 
-import { isAdmin } from '../middlewares/isAdmin';
+import { isAdmin } from "../middlewares/isAdmin";
 
 const usersRouter = express.Router();
 
-usersRouter.use('/:userId/orderlists', hasPermission, ordersRouter);
+usersRouter.use("/:userId/orderlists", hasPermission, ordersRouter);
 usersRouter.get(
-  '/:userId/recover-password',
+  "/:userId/recover-password",
   isRequestedUser,
   recoverPasswordHandler
 );
 usersRouter.post(
-  '/:userId/change-password',
+  "/:userId/change-password",
   isRequestedUser,
   changePasswordHandler
 );
-usersRouter.patch('/:userId/ban', isAdmin, banUserHandler);
+usersRouter.patch("/:userId/ban", isAdmin, banUserHandler);
 //
-usersRouter.get('/', getAllUsers);
+usersRouter.get("/", getAllUsers);
 
-usersRouter.delete('/:userId', isRequestedUser, hasPermission, deleteUser);
+usersRouter.delete("/:userId", hasPermission, deleteUser);
 
-usersRouter.get('/:userId', isRequestedUser, hasPermission, getUserByIdHandler);
+usersRouter.get("/:userId", hasPermission, getUserByIdHandler);
 
-usersRouter.put('/:userId', isRequestedUser, hasPermission, updateUser);
+usersRouter.put("/:userId", hasPermission, updateUser);
 
 export default usersRouter;
