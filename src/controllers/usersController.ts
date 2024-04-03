@@ -1,6 +1,6 @@
-import { Request, Response } from 'express';
-import userService from '../services/users';
-import User from '../model/User';
+import { Request, Response } from "express";
+import userService from "../services/users";
+import User from "../model/User";
 
 export async function recoverPasswordHandler(
   request: Request,
@@ -11,18 +11,18 @@ export async function recoverPasswordHandler(
     const { newPassword, token } = await userService.recoverPassword(userId);
 
     response.status(200).json({
-      status: 'success',
+      status: "success",
       data: {
         newPassword,
         token,
       },
-      message: 'Password recovered successfully',
+      message: "Password recovered successfully",
     });
   } catch (error) {
-    console.error('Error recovering password:', error);
+    console.error("Error recovering password:", error);
     response.status(500).json({
-      status: 'error',
-      message: 'Internal server error',
+      status: "error",
+      message: "Internal server error",
     });
   }
 }
@@ -34,12 +34,12 @@ export async function changePasswordHandler(req: Request, res: Response) {
     await userService.changePassword(email, oldPassword, newPassword);
     res
       .status(200)
-      .json({ status: 'success', message: 'Password changed successfully' });
+      .json({ status: "success", message: "Password changed successfully" });
   } catch (error) {
-    console.error('Error changing password:', error);
+    console.error("Error changing password:", error);
     res
       .status(500)
-      .json({ status: 'error', message: 'Error while changing password' });
+      .json({ status: "error", message: "Error while changing password" });
   }
 }
 
@@ -48,9 +48,9 @@ export async function banUserHandler(req: Request, res: Response) {
     const userId = req.params.userId;
     const isBanned = req.body.banned;
 
-    if (typeof isBanned !== 'boolean') {
+    if (typeof isBanned !== "boolean") {
       res.status(400).json({
-        status: 'error',
+        status: "error",
         message: 'Invalid input. "banned" field must be a boolean',
       });
       return;
@@ -58,16 +58,16 @@ export async function banUserHandler(req: Request, res: Response) {
 
     await userService.banUser(userId, isBanned);
     res.status(200).json({
-      status: 'success',
+      status: "success",
       message: `User ${userId} ${
-        isBanned ? 'banned' : 'unbanned'
+        isBanned ? "banned" : "unbanned"
       } successfully.`,
     });
   } catch (error) {
-    console.error('Error banning/unbanning user:', error);
+    console.error("Error banning/unbanning user:", error);
     res
       .status(500)
-      .json({ status: 'error', message: 'Internal server error.' });
+      .json({ status: "error", message: "Internal server error." });
   }
 }
 
@@ -76,13 +76,13 @@ export async function getAllUsers(_: Request, response: Response) {
     const userList = await userService.getAllUser();
     response.status(200).json({
       data: userList,
-      message: 'users retrieved successfully',
-      status: 'success',
+      message: "users retrieved successfully",
+      status: "success",
     });
   } catch (error) {
     return response.sendStatus(400).json({
       message: `The search users  do not exist.`,
-      status: 'failed',
+      status: "failed",
     });
   }
 }
@@ -95,17 +95,17 @@ export async function getUserByIdHandler(req: Request, res: Response) {
     if (!singleUser) {
       return res
         .status(404)
-        .json({ message: `No user with Id : ${userId}`, status: 'failed' });
+        .json({ message: `No user with Id : ${userId}`, status: "failed" });
     }
     res.status(200).json({
       data: singleUser,
-      message: 'user retrieved successfully',
-      status: 'success',
+      message: "user retrieved successfully",
+      status: "success",
     });
   } catch (error) {
     res
       .status(500)
-      .json({ message: 'Error in fetching single user', status: 'error' });
+      .json({ message: "Error in fetching single user", status: "error" });
   }
 }
 
@@ -117,18 +117,18 @@ export async function deleteUser(request: Request, response: Response) {
     if (!userDelete) {
       return response.status(400).json({
         message: `The search user ${userDelete} do not exist.`,
-        status: 'failed',
+        status: "failed",
       });
     }
     response.status(200).json({
       data: userDelete,
-      message: 'users deleted successfully',
-      status: 'success',
+      message: "users deleted successfully",
+      status: "success",
     });
   } catch (error) {
     return response
       .sendStatus(400)
-      .json({ message: 'Error in deleting user', status: 'error' });
+      .json({ message: "Error in deleting user", status: "error" });
   }
 }
 
@@ -140,8 +140,8 @@ export async function updateUser(request: Request, response: Response) {
 
     if (!userUpdate) {
       return response.status(404).json({
-        message: 'cannot update with the specified parameter.',
-        status: 'failed',
+        message: "cannot update with the specified parameter.",
+        status: "failed",
       });
     }
 
@@ -149,13 +149,13 @@ export async function updateUser(request: Request, response: Response) {
 
     response.status(200).json({
       data: updatedUser,
-      message: 'users information updated successfully',
-      status: 'success',
+      message: "users information updated successfully",
+      status: "success",
     });
   } catch (error) {
     return response.status(500).json({
-      message: 'Error in fetching user information',
-      status: 'failed',
+      message: "Error in fetching user information",
+      status: "failed",
     });
   }
 }
@@ -168,14 +168,14 @@ export async function postNewUser(req: Request, res: Response) {
     if (!newData.firstName || !newData.lastName) {
       return res
         .status(400)
-        .json({ message: 'Firstname and Lastname are required' });
+        .json({ message: "Firstname and Lastname are required" });
     }
     res.status(201).json({
       data: newUser,
-      message: 'New user added successfully',
-      status: 'success',
+      message: "New user added successfully",
+      status: "success",
     });
   } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 }

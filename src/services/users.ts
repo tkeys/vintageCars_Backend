@@ -1,10 +1,10 @@
-import User, { UserDocument } from '../model/User';
+import User, { UserDocument } from "../model/User";
 import {
   comparePasswords,
   generateAuthToken,
   hashPassword,
-} from '../utils/authUtils';
-import { generateNewPassword } from '../utils/usersUtils';
+} from "../utils/authUtils";
+import { generateNewPassword } from "../utils/usersUtils";
 
 async function recoverPassword(
   userId: string
@@ -21,15 +21,15 @@ async function recoverPassword(
     );
 
     if (!user) {
-      throw new Error('User not found');
+      throw new Error("User not found");
     }
 
     const token = generateAuthToken(user);
 
     return { newPassword, token };
   } catch (error) {
-    console.error('Failed to recover password:', error);
-    throw new Error('Failed to recover password');
+    console.error("Failed to recover password:", error);
+    throw new Error("Failed to recover password");
   }
 }
 
@@ -41,7 +41,7 @@ async function changePassword(
   const user = await User.findOne({ email });
 
   if (!user) {
-    throw new Error('User not found');
+    throw new Error("User not found");
   }
 
   const isPasswordValid = await comparePasswords(
@@ -50,7 +50,7 @@ async function changePassword(
   );
 
   if (!isPasswordValid) {
-    throw new Error('Old password is incorrect');
+    throw new Error("Old password is incorrect");
   }
 
   const newPasswordHashed = await hashPassword(newPassword);
@@ -63,7 +63,7 @@ async function banUser(userId: string, isBanned: boolean): Promise<void> {
   try {
     const user = await User.findById(userId);
     if (!user) {
-      throw new Error('User not found');
+      throw new Error("User not found");
     }
 
     user.banned = isBanned;
@@ -71,7 +71,7 @@ async function banUser(userId: string, isBanned: boolean): Promise<void> {
     await user.save();
   } catch (error) {
     console.error(error);
-    throw new Error('Failed to ban/unban user.');
+    throw new Error("Failed to ban/unban user.");
   }
 }
 
