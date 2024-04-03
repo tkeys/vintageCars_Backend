@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import app from "./app";
 
 import { OrderDocument, OrderSchema } from "./model/Order";
-import { VintageCarDocument, VintageCarSchema } from "./model/VintageCar";
+import { VintageCarDocument, VintageCarSchema } from "./model/Car";
 import { BrandDocument, BrandSchema } from "./model/Brand";
 import { ConditionDocument, ConditionSchema } from "./model/Condition";
 
