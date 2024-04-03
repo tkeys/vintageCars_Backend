@@ -73,7 +73,7 @@ export async function banUserHandler(req: Request, res: Response) {
 
 export async function getAllUsers(_: Request, response: Response) {
   try {
-    const userList = await userService.getAllUser();
+    const userList = await userService.getAllUsers();
     response.status(200).json({
       data: userList,
       message: "users retrieved successfully",
