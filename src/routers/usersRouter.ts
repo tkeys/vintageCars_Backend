@@ -33,7 +33,7 @@ usersRouter.get("/", getAllUsers);
 
 usersRouter.delete("/:userId", hasPermission, deleteUser);
 
-usersRouter.get("/:userId", getUserByIdHandler);
+usersRouter.get("/:userId", hasPermission, getUserByIdHandler);
 
 usersRouter.put("/:userId", hasPermission, updateUser);
 
