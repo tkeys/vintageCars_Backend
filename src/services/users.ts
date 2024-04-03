@@ -59,7 +59,24 @@ async function changePassword(
   await user.save();
 }
 
+async function banUser(userId: string, isBanned: boolean): Promise<void> {
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    user.banned = isBanned;
+
+    await user.save();
+  } catch (error) {
+    console.error(error);
+    throw new Error("Failed to ban/unban user.");
+  }
+}
+
 export default {
   recoverPassword,
   changePassword,
+  banUser,
 };
