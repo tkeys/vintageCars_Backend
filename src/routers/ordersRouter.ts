@@ -4,7 +4,7 @@ import {
   deleteOrderFromOrderListHandler,
   getOrderListHandler,
   updateOrderFromOrderListHandler,
-} from "../controllers/orderList";
+} from "../controllers/orderListController";
 
 const ordersRouter = express.Router();
 

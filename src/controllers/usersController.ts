@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import userService from "../services/users";
+import userService from "../services/usersService";
 import User from "../model/User";
 
 export async function recoverPasswordHandler(
