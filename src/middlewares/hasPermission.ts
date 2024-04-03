@@ -13,7 +13,7 @@ export async function hasPermission(
     const decodedToken = checkAuthorization(req);
 
     if (
-      decodedToken.userId === userId ||
+      (decodedToken.userId === userId && !decodedToken.isUserBanned) ||
       decodedToken.userRole === Role.Admin
     ) {
       next();

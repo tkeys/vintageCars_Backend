@@ -11,7 +11,7 @@ export function isRequestedUser(
   try {
     const decodedToken = checkAuthorization(req);
 
-    if (decodedToken.userId === userId) {
+    if (decodedToken.userId === userId && !decodedToken.isUserBanned) {
       next();
     } else {
       throw new Error("User is not authorized");

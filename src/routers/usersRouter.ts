@@ -3,9 +3,11 @@ import ordersRouter from "./ordersRouter";
 import { hasPermission } from "../middlewares/hasPermission";
 import { isRequestedUser } from "../middlewares/isRequestedUser";
 import {
+  banUserHandler,
   changePasswordHandler,
   recoverPasswordHandler,
 } from "../controllers/usersController";
+import { isAdmin } from "../middlewares/isAdmin";
 
 const usersRouter = express.Router();
 
@@ -20,5 +22,6 @@ usersRouter.post(
   isRequestedUser,
   changePasswordHandler
 );
+usersRouter.patch("/:userId/ban", isAdmin, banUserHandler);
 
 export default usersRouter;
