@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import authService, { verifyToken } from "../services/auth";
+import authService, { verifyToken } from "../services/authService";
 import { UserData } from "../types/UserData";
 import { extractJwtToken, sanitizeUserData } from "../utils/authUtils";
 

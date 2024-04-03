@@ -1,5 +1,5 @@
 import { connectToTestDatabase, closeTestDatabase } from "../db-helper";
-import orderListServices from "../../src/services/orderList";
+import orderListServices from "../../src/services/orderListService";
 import { setupDummyUserRegistration } from "../utils/sharedUtils";
 import { dummyDaniloUserData } from "../utils/authUtils";
 

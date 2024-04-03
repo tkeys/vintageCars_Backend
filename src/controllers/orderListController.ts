@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import orderListService from "../services/orderList";
+import orderListService from "../services/orderListService";
 import { validateOrderSum } from "../utils/ordersUtils";
 import OrderList from "../model/OrderList";
 

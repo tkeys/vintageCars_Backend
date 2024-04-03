@@ -1,5 +1,5 @@
 import { connectToTestDatabase, closeTestDatabase } from "../db-helper";
-import authServices from "../../src/services/auth";
+import authServices from "../../src/services/authService";
 import { setupDummyUserRegistration } from "../utils/sharedUtils";
 import { dummyDaniloUserData } from "../utils/authUtils";
 
