@@ -11,6 +11,7 @@ import {
   getUserByIdHandler,
   updateUser,
 } from '../controllers/usersController';
+
 import { isAdmin } from '../middlewares/isAdmin';
 
 const usersRouter = express.Router();
@@ -30,10 +31,10 @@ usersRouter.patch('/:userId/ban', isAdmin, banUserHandler);
 //
 usersRouter.get('/', getAllUsers);
 
-usersRouter.delete('/:userId', hasPermission, deleteUser);
+usersRouter.delete('/:userId', isRequestedUser, hasPermission, deleteUser);
 
-usersRouter.get('/:userId', hasPermission, getUserByIdHandler);
+usersRouter.get('/:userId', isRequestedUser, hasPermission, getUserByIdHandler);
 
-usersRouter.put('/:userId', hasPermission, updateUser);
+usersRouter.put('/:userId', isRequestedUser, hasPermission, updateUser);
 
 export default usersRouter;
