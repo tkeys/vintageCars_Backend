@@ -41,3 +41,31 @@ export async function changePasswordHandler(req: Request, res: Response) {
       .json({ status: "error", message: "Error while changing password" });
   }
 }
+
+export async function banUserHandler(req: Request, res: Response) {
+  try {
+    const userId = req.params.userId;
+    const isBanned = req.body.banned;
+
+    if (typeof isBanned !== "boolean") {
+      res.status(400).json({
+        status: "error",
+        message: 'Invalid input. "banned" field must be a boolean',
+      });
+      return;
+    }
+
+    await userService.banUser(userId, isBanned);
+    res.status(200).json({
+      status: "success",
+      message: `User ${userId} ${
+        isBanned ? "banned" : "unbanned"
+      } successfully.`,
+    });
+  } catch (error) {
+    console.error("Error banning/unbanning user:", error);
+    res
+      .status(500)
+      .json({ status: "error", message: "Internal server error." });
+  }
+}
