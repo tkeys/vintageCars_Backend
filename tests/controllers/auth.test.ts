@@ -1,14 +1,18 @@
 import request from "supertest";
+
 import app from "../../src/app";
 import { connectToTestDatabase, closeTestDatabase } from "../db-helper";
 import { setupDummyUserRegistration } from "../utils/sharedUtils";
+import { dummyDaniloUserData } from "../utils/authUtils";
 
 let token: string;
 
 beforeAll(async () => {
   await connectToTestDatabase();
 
-  const registrationData = await setupDummyUserRegistration();
+  const registrationData = await setupDummyUserRegistration(
+    dummyDaniloUserData
+  );
   token = registrationData.token;
 });
 
