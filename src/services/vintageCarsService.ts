@@ -1,4 +1,4 @@
-import VintageCar, { VintageCarDocument } from "../model/VintageCar";
+import VintageCar, { VintageCarDocument } from "../model/Car";
 import { VintageCarData } from "../types/VintageCarData";
 
 const getAllCars = async (
