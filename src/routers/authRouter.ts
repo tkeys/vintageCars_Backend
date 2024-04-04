@@ -12,7 +12,7 @@ import {
 const router = express.Router();
 
 router.post(
-  '/register',
+  "/register",
   validateRequestBody(registerSchema),
   registerUserHandler
 );

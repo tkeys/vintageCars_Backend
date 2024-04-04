@@ -1,6 +1,6 @@
 import { ObjectId } from "mongoose";
 import OrderList, { OrderListDocument } from "../model/OrderList";
-import VintageCar from "../model/VintageCar";
+import VintageCar from "../model/Car";
 import { OrderData, OrderListData } from "../types/OrderData";
 import Order, { OrderDocument } from "../model/Order";
 

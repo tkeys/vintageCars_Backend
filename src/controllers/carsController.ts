@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import vintageCarServices from "../services/vintageCarsService";
-import VintageCar from "../model/VintageCar";
+import VintageCar from "../model/Car";
 
 import mongoose from "mongoose";
 
@@ -14,8 +14,6 @@ export async function getAllCars(req: Request, res: Response) {
       minPrice = 0,
       maxPrice = Infinity,
     } = req.query;
-
-    const totalCars = await VintageCar.find().countDocuments();
 
     const cars = await vintageCarServices.getAllCars(
       Number(limit),
@@ -49,7 +47,7 @@ export async function createCar(req: Request, res: Response) {
       status: "success",
     });
   } catch (error) {
-    console.error(error);
+    //console.error(error);
     res.status(500).json({
       message: "Internal server Error",
       status: "error",
