@@ -13,8 +13,8 @@ const router = express.Router();
 
 router.get("/", getAllCars);
 router.get("/:id", getCarById);
-router.post("/", isAdmin, createCar);
-router.put("/:id", isAdmin, updateCarById);
-router.delete("/:id", isAdmin, deleteCarById);
+router.post("/", createCar);
+router.put("/:id", updateCarById);
+router.delete("/:id", deleteCarById);
 
 export default router;

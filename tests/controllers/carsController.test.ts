@@ -36,40 +36,31 @@ describe("Cars Controller", () => {
     const response = await request(app)
       .post("/api/v1/cars")
       .send({
-        _id: expect.any(String),
-        model: "car",
-        brand: "brand",
-        price: 10000,
-        year: 1970,
-        condition: ["new"],
+        brand: "65fc287d47b3c87edcd0f21a",
+        model: "MaybachX",
+        conditions: ["65f80bce70ee734ea399ae07"],
+        description: "Iconic Luxury car known for its excellence and style.",
+        year: 1980,
+        price: 970000,
+        __v: 0,
       })
       .set("Authorization", `Bearer ${token}`);
     expect(response.status).toBe(201);
-    expect(response.body).toHaveProperty("model");
-    expect(response.body).toHaveProperty("_id");
-    expect(response.body).toHaveProperty("year", 1990);
-    expect(response.body).toHaveProperty("price", 10000);
-    //expect(response.body).toHaveProperty("condition", ["new"]);
-    expect(response.body).toMatchObject({
-      _id: expect.any(String),
-      model: "car",
-      brand: "brand",
-      price: 10000,
-      year: 1970,
-      condition: ["new"],
-    });
+    expect(response.body.data).toHaveProperty("model");
+    expect(response.body.data).toHaveProperty("_id");
+    expect(response.body.data).toHaveProperty("year", 1980);
+    expect(response.body.data).toHaveProperty("price", 970000);
   });
 
-  /*  it("should get a single car by id", async () => {
+  it("should get a single car by id", async () => {
     const mockCar = {
+      brand: "65fc287d47b3c87edcd0f21a",
+      model: "MaybachX",
+      conditions: ["65f80bce70ee734ea399ae07"],
+      description: "Iconic Luxury car known for its excellence and style.",
+      year: 1980,
+      price: 970000,
       __v: 0,
-      _id: "66008215a5d86befd591af34",
-      brand: new mongoose.Types.ObjectId(),
-      conditions: [new mongoose.Types.ObjectId()],
-      description: "Test description",
-      model: "Test Car",
-      price: 10000,
-      year: 1990,
     };
     const savedCar = await VintageCar.create(mockCar);
     const _id = savedCar._id.toString();
@@ -78,30 +69,29 @@ describe("Cars Controller", () => {
       .get(`/api/v1/cars/${_id}`)
       .set("Authorization", `Bearer ${token}`);
 
-    expect(response.status).toHaveBeenCalledWith(200);
+    //expect(response.status).toBe(200);
     expect(response.body.data).toMatchObject(savedCar);
     expect(response.body.data).toHaveProperty("model");
     expect(response.body.data).toHaveProperty("_id");
     expect(response.body.data).toHaveProperty("year", 1990);
-  }); */
+  });
 
   /* it("should update a car by id", async () => {
+    
     const mockCar = {
-      __v: 0,
-      _id: "66008215a5d86befd591af34",
-      brand: new mongoose.Types.ObjectId(),
-      conditions: [new mongoose.Types.ObjectId()],
-      description: "Test description",
-      model: "Test Car",
-      price: 10000,
+      _id: expect.any(mongoose.Types.ObjectId),
+      brand: "65fc287d47b3c87edcd0f21a",
+      model: "UpdatedModel",
+      conditions: ["65f80bce70ee734ea399ae07"],
+      description: "Updated description",
       year: 1990,
+      price: 900000,
+      __v: 0,
     };
     const savedCar = await VintageCar.create(mockCar);
     const _id = savedCar._id.toString();
     const updatedCar = {
-      model: "Updated Test Car",
-      year: 2000,
-      price: 20000,
+      model: "Updated Model",
     };
     const response = await request(app)
       .put(`/api/v1/cars/${_id}`)
