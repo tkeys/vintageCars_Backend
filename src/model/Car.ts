@@ -7,7 +7,7 @@ export const VintageCarSchema = new mongoose.Schema({
   brand: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Brand",
-    required: [false, "Brand is required"],
+    required: [true, "Brand is required"],
   },
   model: {
     type: String,
