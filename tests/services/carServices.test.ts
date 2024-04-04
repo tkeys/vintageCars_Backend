@@ -23,25 +23,37 @@ describe("Cars services", () => {
     await closeTestDatabase();
   });
 
-  /*  afterEach(async () => {
+  afterEach(async () => {
     await VintageCar.deleteMany({});
-  }); */
-  /* it("should get all cars", async () => {
-    const response = await request(app).get("/api/v1/cars");
-    expect(response.status).toBe(200);
-    expect(response.body.data.length).toBe(0);
-  }); */
+  });
 
-  it("should create a new car", async () => {
-    const vintagecar: VintageCarDocument = new VintageCar({
-      model: "BMW",
-      price: 10000,
-      year: 1990,
-      brand: "this is a brand",
-      conditions: ["this is a condition"],
-      description: "this is a description",
+  it("should get all cars", async () => {
+    const Cars = await vintageCarservices.getAllCars(
+      1,
+      0,
+      "",
+      Number.MAX_SAFE_INTEGER,
+      Number.MAX_SAFE_INTEGER
+    );
+    expect(Cars.length).toBe(0);
+    expect(Cars).toBeInstanceOf(Array);
+  });
+
+  describe("getCarById", () => {
+    it("should return a car when found by id", async () => {
+      const vintageCar = await VintageCar.create({
+        _id: new mongoose.Types.ObjectId(),
+        model: "test",
+        price: 100,
+        description: "test",
+        year: 2020,
+        Brand: new mongoose.Types.ObjectId(),
+        conditions: new mongoose.Types.ObjectId(),
+      });
+      const foundVintageCar = await vintageCarservices.getCarById(
+        vintageCar._id
+      );
+      expect(foundVintageCar).toEqual(vintageCar);
     });
-    const newVintageCar = await vintageCarservices.createCar(vintagecar);
-    expect(newVintageCar).toHaveProperty("model");
   });
 });
