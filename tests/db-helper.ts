@@ -1,5 +1,9 @@
 import { MongoMemoryServer } from "mongodb-memory-server";
-import mongoose from "mongoose";
+import mongoose, { connect } from "mongoose";
+import { BrandDocument, BrandSchema } from "../src/model/Brand";
+import { VintageCarDocument, VintageCarSchema } from "../src/model/Car";
+import { ConditionDocument, ConditionSchema } from "../src/model/Condition";
+import { OrderDocument, OrderSchema } from "../src/model/Order";
 
 let mongoServer: MongoMemoryServer;
 
@@ -9,6 +13,10 @@ export async function connectToTestDatabase() {
     const uri = mongoServer.getUri();
 
     await mongoose.connect(uri);
+    mongoose.model<OrderDocument>("Order", OrderSchema);
+    mongoose.model<VintageCarDocument>("VintageCar", VintageCarSchema);
+    mongoose.model<BrandDocument>("Brand", BrandSchema);
+    mongoose.model<ConditionDocument>("Condition", ConditionSchema);
   }
 }
 

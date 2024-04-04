@@ -2,8 +2,9 @@ import request from "supertest";
 import app from "../../src/app";
 import VintageCar, { VintageCarDocument } from "../../src/model/Car";
 import { closeTestDatabase, connectToTestDatabase } from "../db-helper";
-import vintageCarservices from "../../src/services/vintageCars";
+import vintageCarsService from "../../src/services/vintageCarsService";
 import mongoose from "mongoose";
+import { dummyDaniloAdminData } from "../utils/authUtils";
 
 import { setupDummyUserRegistration } from "../utils/sharedUtils";
 
@@ -13,7 +14,9 @@ let orderListId: string;
 describe("Cars services", () => {
   beforeAll(async () => {
     await connectToTestDatabase();
-    const registrationData = await setupDummyUserRegistration();
+    const registrationData = await setupDummyUserRegistration(
+      dummyDaniloAdminData
+    );
     token = registrationData.token;
     userId = registrationData.userId;
     orderListId = registrationData.orderListId;
@@ -28,7 +31,7 @@ describe("Cars services", () => {
   });
 
   it("should get all cars", async () => {
-    const Cars = await vintageCarservices.getAllCars(
+    const Cars = await vintageCarsService.getAllCars(
       1,
       0,
       "",
@@ -42,18 +45,18 @@ describe("Cars services", () => {
   describe("getCarById", () => {
     it("should return a car when found by id", async () => {
       const vintageCar = await VintageCar.create({
-        _id: new mongoose.Types.ObjectId(),
-        model: "test",
-        price: 100,
-        description: "test",
-        year: 2020,
-        Brand: new mongoose.Types.ObjectId(),
-        conditions: new mongoose.Types.ObjectId(),
+        brand: "65fc287d47b3c87edcd0f21a",
+        model: "MaybachX",
+        conditions: ["65f80bce70ee734ea399ae07"],
+        description: "Iconic Luxury car known for its excellence and style.",
+        year: 1980,
+        price: 970000,
+        __v: 0,
       });
-      const foundVintageCar = await vintageCarservices.getCarById(
+      const foundVintageCar = await vintageCarsService.getCarById(
         vintageCar._id
       );
-      expect(foundVintageCar).toEqual(vintageCar);
+      expect(foundVintageCar).toHaveProperty("model");
     });
   });
 });

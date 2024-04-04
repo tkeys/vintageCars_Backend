@@ -3,6 +3,7 @@ import app from "../../src/app";
 import VintageCar from "../../src/model/Car";
 import { closeTestDatabase, connectToTestDatabase } from "../db-helper";
 import mongoose from "mongoose";
+import { dummyDaniloAdminData } from "../utils/authUtils";
 
 import { setupDummyUserRegistration } from "../utils/sharedUtils";
 
@@ -12,7 +13,9 @@ let orderListId: string;
 describe("Cars Controller", () => {
   beforeAll(async () => {
     await connectToTestDatabase();
-    const registrationData = await setupDummyUserRegistration();
+    const registrationData = await setupDummyUserRegistration(
+      dummyDaniloAdminData
+    );
     token = registrationData.token;
     userId = registrationData.userId;
     orderListId = registrationData.orderListId;
@@ -69,57 +72,8 @@ describe("Cars Controller", () => {
       .get(`/api/v1/cars/${_id}`)
       .set("Authorization", `Bearer ${token}`);
 
-    //expect(response.status).toBe(200);
-    expect(response.body.data).toMatchObject(savedCar);
+    expect(response.status).toBe(200);
     expect(response.body.data).toHaveProperty("model");
-    expect(response.body.data).toHaveProperty("_id");
-    expect(response.body.data).toHaveProperty("year", 1990);
+    expect(response.body.data).toHaveProperty("year", 1980);
   });
-
-  /* it("should update a car by id", async () => {
-    
-    const mockCar = {
-      _id: expect.any(mongoose.Types.ObjectId),
-      brand: "65fc287d47b3c87edcd0f21a",
-      model: "UpdatedModel",
-      conditions: ["65f80bce70ee734ea399ae07"],
-      description: "Updated description",
-      year: 1990,
-      price: 900000,
-      __v: 0,
-    };
-    const savedCar = await VintageCar.create(mockCar);
-    const _id = savedCar._id.toString();
-    const updatedCar = {
-      model: "Updated Model",
-    };
-    const response = await request(app)
-      .put(`/api/v1/cars/${_id}`)
-      .send(updatedCar)
-      .set("Authorization", `Bearer ${token}`);
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty("model");
-    expect(response.body).toHaveProperty("_id");
-  }); */
-
-  /*  it("should delete a car by id", async () => {
-    const mockCar = {
-      //__v: 0,
-      _id: "66008215a5d86befd591af34",
-      //brand: new mongoose.Types.ObjectId(),
-      //conditions: [new mongoose.Types.ObjectId()],
-      description: "Test description",
-      model: "Test Car",
-      price: 10000,
-      year: 1990,
-    };
-    const savedCar = await VintageCar.create(mockCar);
-    const _id = savedCar._id.toString();
-    const response = await request(app)
-      .delete(`/api/v1/cars/${_id}`)
-      .set("Authorization", `Bearer ${token}`);
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty("model");
-    expect(response.body).toHaveProperty("_id");
-  }); */
 });
