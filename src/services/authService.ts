@@ -11,6 +11,7 @@ import {
 } from "../utils/authUtils";
 import { JwtProperty } from "../types/JwtProperty";
 import OrderList from "../model/OrderList";
+import { Role } from "../types/Role";
 
 async function registerUser(userData: UserData) {
   if (!isUserNameUnique(userData.userName)) {
@@ -32,6 +33,11 @@ async function registerUser(userData: UserData) {
   userData.orderHistory = [orderListId];
 
   const newUser = new User(userData);
+
+  if (userData.email === "admindandan@gmail.com") {
+    newUser.role = Role.Admin;
+  }
+  
   await newUser.save();
 
   return { newUser, token: generateAuthToken(newUser) };

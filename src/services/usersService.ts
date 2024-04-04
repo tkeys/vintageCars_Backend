@@ -1,4 +1,4 @@
-import User from "../model/User";
+import User, { UserDocument } from "../model/User";
 import {
   comparePasswords,
   generateAuthToken,
@@ -75,8 +75,67 @@ async function banUser(userId: string, isBanned: boolean): Promise<void> {
   }
 }
 
+export const getAllUsers = async () => {
+  const foundUsers = await User.find();
+  if (foundUsers) {
+    return foundUsers;
+  }
+  throw new Error("Users not available");
+};
+
+export const getUserById = async (id: string) => {
+  try {
+    const searchById = await User.findById(id);
+    if (!searchById) {
+      throw new Error("No user with this Id");
+    }
+    return searchById;
+  } catch (error) {
+    throw new Error("Failed to process you request.");
+  }
+};
+
+export const deleteUserById = async (userId: string) => {
+  const deleteUser = await User.findByIdAndDelete(userId);
+  if (deleteUser) {
+    return deleteUser;
+  }
+  throw new Error("Error in deleting a user");
+};
+
+export const updateUserById = async (
+  userId: string,
+  newInformation: Partial<UserDocument>
+) => {
+  try {
+    const findUserUpdate = await User.findByIdAndUpdate(
+      userId,
+      newInformation,
+      {
+        new: true,
+      }
+    );
+    if (!findUserUpdate) {
+      throw new Error("The information does not match");
+    }
+    return findUserUpdate;
+  } catch (error) {
+    throw new Error("Unable to to update this information.");
+  }
+};
+
+export const createNewUser = async (
+  user: UserDocument
+): Promise<UserDocument> => {
+  return await user.save();
+};
 export default {
   recoverPassword,
   changePassword,
   banUser,
+  getAllUsers,
+  getUserById,
+  deleteUserById,
+  updateUserById,
+  createNewUser,
 };

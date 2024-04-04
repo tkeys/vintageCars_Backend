@@ -11,6 +11,14 @@ export const dummyDaniloUserData: UserRegistrationData = {
   lastName: "Cangucu",
 };
 
+export const dummyDaniloAdminData: UserRegistrationData = {
+  email: "admindandan@gmail.com",
+  userName: "admindandan",
+  password: "admintest123",
+  firstName: "Danilo",
+  lastName: "Cangucu",
+};
+
 export async function registerDummyUser(userData: UserRegistrationData) {
   const response = await request(app)
     .post("/api/v1/auth/register")

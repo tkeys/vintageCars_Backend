@@ -7,7 +7,7 @@ import {
   loginUserHandler,
   registerUserHandler,
   verifyTokenHandler,
-} from "../controllers/auth";
+} from "../controllers/authController";
 
 const router = express.Router();
 

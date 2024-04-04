@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import vintageCarServices from "../services/vintageCars";
+import vintageCarServices from "../services/vintageCarsService";
 import VintageCar from "../model/Car";
 
 import mongoose from "mongoose";
