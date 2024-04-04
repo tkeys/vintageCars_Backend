@@ -19,8 +19,8 @@ Before you begin, ensure you have the following installed:
 1. Clone the repository to your local machine:
 
    ```sh
-   git clone https://yourrepository.com/vintage-cars-api.git
-   cd vintage-cars-api
+   git clone https://github.com/danilocangucu/vintage-cars.git
+   cd vintage-cars
    ```
 
 2. Install the required packages:
@@ -60,7 +60,7 @@ npm run test
 
 ## API Endpoints
 
-The API can be accessed in an AWS EC2 instance at http://13.49.67.88:5000 and supports the following operations:
+The API can also be accessed in an AWS EC2 instance at http://13.49.67.88:5000 and supports the following operations:
 
 ### Authorization API Endpoints
 Base URL: `/api/v1/auth`
