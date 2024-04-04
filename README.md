@@ -60,12 +60,13 @@ npm run test
 
 ## API Endpoints
 
-The API supports the following operations:
+The API can be accessed in an AWS EC2 instance at http://13.49.67.88:5000 and supports the following operations:
 
 ### Authorization API Endpoints
+Base URL: `/api/v1/auth`
 
 #### Register User
-- **POST /api/v1/auth/register**: Create a new user account.
+- **POST /register**: Create a new user account.
   - Request Body:
     ```json
     {
@@ -98,7 +99,7 @@ The API supports the following operations:
     ```
 
 #### Login User
-- **POST /api/v1/auth/login**: Authenticate a user and obtain an authorization token.
+- **POST /login**: Authenticate a user and obtain an authorization token.
   - Request Body:
     ```json
     {
@@ -116,7 +117,7 @@ The API supports the following operations:
     ```
 
 #### Verify Token
-- **POST /api/v1/auth/verify**: Verify the authenticity of an authorization token.
+- **POST /verify**: Verify the authenticity of an authorization token.
   - Request Header:
     ```
     Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWY4MGFmYzcwZWU3MzRlYTM5OWFlMDQiLCJ1c2VyUm9sZSI6IkFkbWluIiwiaXNVc2VyQmFubmVkIjp0cnVlLCJpYXQiOjE3MTIyMzQ2MzMsImV4cCI6MTcxMjMyMTAzM30.wh1tCsCFhYuU_Ai0oAaosee7-nH2vwbpHTUdvJgT7Jw
@@ -142,14 +143,17 @@ The API supports the following operations:
     ```
 
 ### Cars API Endpoints
-- **GET /api/v1/cars**: Retrieve all cars.
-- **POST /api/v1/cars**: Create a new car record. Requires an authorization token from an admin.
-- **GET /api/v1/cars/:id**: Retrieve a single car by its ID.
-- **PUT /api/v1/cars/:id**: Update a car record by its ID. Requires an authorization token from an admin.
-- **DELETE /api/v1/cars/:id**: Delete a car record by its ID. Requires an authorization token from an admin.
+Base URL: `/api/v1/cars`
+
+- **GET /**: Retrieve all cars.
+- **POST /**: Create a new car record. Requires an authorization token from an admin.
+- **GET /:id**: Retrieve a single car by its ID.
+- **PUT /:id**: Update a car record by its ID. Requires an authorization token from an admin.
+- **DELETE /:id**: Delete a car record by its ID. Requires an authorization token from an admin.
 
 ### Users API Endpoints
-- Base URL: `/api/v1/users`
+Base URL: `/api/v1/users`
+
   - **GET /**: Retrieve all users. Requires an authorization token from an admin.
   - **GET /:userId**: Retrieve a single user by its ID.
   - **PUT /:userId**: Update a user record by its ID. Requires an authorization token from either an admin or the user themselves.
@@ -161,7 +165,7 @@ The API supports the following operations:
 ### Orders API Endpoints
 Base URL: `/api/v1/users/:userId/orderlists`
 
-All methods require authorization from either an admin or the user themselves.
+All following methods require authorization from either an admin or the user themselves.
 
 - **GET /:orderListId**: Retrieve all orders from a specific order list.
   - **Response**:
@@ -244,7 +248,19 @@ All methods require authorization from either an admin or the user themselves.
 
 ## Built With
 
-- **Express.js** - The web framework used
-- **MongoDB** - The database used
-- **Mongoose** - MongoDB object modeling tool
-- **Jest** - The testing framework used
+- **[Typescript](https://www.typescriptlang.org/)** - A typed superset of JavaScript that compiles to plain JavaScript.
+- **[Express.js](https://expressjs.com/)** - The web framework used for building web applications and APIs.
+- **[MongoDB](https://www.mongodb.com/)** - The NoSQL database used for storing data.
+- **[Mongoose](https://mongoosejs.com/)** - MongoDB object modeling tool for Node.js, providing a schema-based solution to model application data.
+- **[Jest](https://jestjs.io/)** - A delightful JavaScript testing framework for unit testing JavaScript code.
+- **[Supertest](https://www.npmjs.com/package/supertest)** - A library for testing HTTP servers in Node.js.
+- **[MongoDB Memory Server](https://nodkz.github.io/mongodb-memory-server/)** - In-memory MongoDB server for testing.
+- **[Joi](https://joi.dev/)** - A powerful schema description language and validator for JavaScript objects.
+- **[Bcrypt](https://www.npmjs.com/package/bcrypt)** - A library for hashing passwords.
+- **[Dotenv](https://www.npmjs.com/package/dotenv)** - A module for loading environment variables from a `.env` file into `process.env`.
+- **[Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken)** - An implementation of JSON Web Tokens for authentication.
+- **[Uuid](https://www.npmjs.com/package/uuid)** - A library for generating UUIDs.
+- **[Nodemon](https://nodemon.io/)** - A utility that monitors for changes in files and automatically restarts the server.
+- **[Ts-jest](https://www.npmjs.com/package/ts-jest)** - A TypeScript preprocessor with source map support for Jest.
+- **[Ts-node](https://www.npmjs.com/package/ts-node)** - TypeScript execution environment and REPL for Node.js.
+- **[Generate-password](https://www.npmjs.com/package/generate-password)** - A module for generating random passwords.
