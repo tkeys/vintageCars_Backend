@@ -64,7 +64,7 @@ export async function getCarById(req: Request, res: Response) {
     });
   } catch (error) {
     if (error) {
-      console.error(error, "so we know");
+      console.error(error);
       res.status(404).json({
         message: `car not found by id ${req.params.id}`,
         status: "error",

@@ -5,5 +5,4 @@ export const mockVintageCar = {
   description: "Iconic Luxury car known for its excellence and style.",
   year: 1980,
   price: 970000,
-  __v: 0,
 };
