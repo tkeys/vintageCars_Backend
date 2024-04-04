@@ -1,57 +1,92 @@
-# Backend Assignment - API
+# Vintage Cars API
 
-This is the README for an Express backend assignment that requires you to implement the REST APIs for an E-commerce based on the Entity-Relationship Diagram (ERD) assignment. The ERD assignment should outline the data model, including the relationships and attributes of entities within the system. You are tasked with designing and documenting the REST APIs according to the ERD specifications.
+Welcome to the Vintage Cars API project! This API provides a platform for managing a collection of vintage cars, including operations for creating, retrieving, updating, and deleting car records. It's built using Express.js and MongoDB, offering a robust backend solution for vintage car enthusiasts and collectors.
 
-## Introduction
+## Getting Started
 
-This Express backend assignment involves building a RESTful API for an E-commerce. You are provided with an Entity-Relationship Diagram (ERD) assignment that outlines the data model, including the relationships and attributes of entities such as products, users, orders and admin roles.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-## Entity CRUD Operations
+### Prerequisites
 
-`Before` implementing JWT authentication, `you are required to create the basic CRUD` (Create, Read, Update, Delete) operations for the entities based on the specifications provided in the ERD assignment. This section focuses on designing and implementing the core functionality to manage and interact with the specified entities.
+Before you begin, ensure you have the following installed:
 
-## Authentication
+- Node.js (v12.x or later recommended)
+- npm (Node Package Manager)
+- yarn (package manager)
+- MongoDB (Local or cloud-based)
 
-For security, this API should implement user authentication using JSON Web Tokens (JWT). Each user should have a unique username and password OR broker authentication. Certain admin endpoints may require special privileges for access.
+### Installation
 
-## Minimum requirements
+1. Clone the repository to your local machine:
 
-The minimum requirements of the project.
+   ```sh
+   git clone https://yourrepository.com/vintage-cars-api.git
+   cd vintage-cars-api
+   ```
 
-1. Products
+2. Install the required npm packages:
 
-- Attributes: ID, name, description, categories, variants/ sizes
-- Get list of all products with/without pagination
-- Get list of products, filtering (search) by: name, categories, variant
-- Get a product by ID
+   ```sh
+   npm install
+   yarn install
+   ```
 
-2. Users
+3. Set up your environment variables:
 
-- Attributes: ID, first name, last name, email
-- Sign up a new user (username, password, first name, last name, email)
-- Sign in user with username/password
-- Update user profile (first name, last name, email)
-- Forget password request
-- Change password (username, old password, new password)
+   - Copy the `.env.example` file to a new file named `.env`.
+   - Fill in the necessary details such as your MongoDB URI.
 
-3. Admin
-   Special users with certain privileges
+4. Start the application:
 
-- Add a new product, update info of a product, remove a product
-- Ban a user, unban a user
+   - For development:
+     ```sh
+     npm run dev
+     ```
+   - For production:
 
-## Response Format
+     npm run start
+     yarn start
 
-All API responses should be provided in JSON format. A typical response should include a `status`, `data`, and an optional `message` field. The `status` field should indicate the success or failure of the request.
+     ```
 
-## Error Handling
+     ```
 
-The API should include comprehensive error handling with clear and informative error messages. Errors should be accompanied by appropriate HTTP status codes.
+## Running the Tests
 
-## Testing
+To ensure the reliability and correctness of the API, unit tests and integration tests are provided. Run the tests using the following command:
 
-Developers should conduct unit tests and integration tests to ensure the reliability and correctness of the API. Instructions for running the tests should be provided in the project's documentation.
+```sh
+npm run test
+yarn test
+```
 
-## Deployment
+## API Endpoints
 
-The API should be deployed before the **`DEADLINE`**
+The API supports the following operations:
+
+- **GET /api/v1/cars**: Retrieve all cars.
+- **POST /api/v1/cars**: Create a new car record. Requires an authorization token.
+- **GET /api/v1/cars/:id**: Retrieve a single car by its ID.
+- **PUT /api/v1/cars/:id**: Update a car record by its ID. Requires an authorization token.
+- **DELETE /api/v1/cars/:id**: Delete a car record by its ID. Requires an authorization token.
+
+- **GET /api/v1/users**: Retrieve all users.
+- **POST /api/v1/users**: Create a new user record. Requires an authorization token.
+- **GET /api/v1/users/:id**: Retrieve a single user by its ID.
+- **PUT /api/v1/users/:id**: Update a user record by its ID. Requires an authorization token.
+- **DELETE /api/v1/users/:id**: Delete a user record by its ID. Requires an authorization token.
+
+- **GET /api/v1/orders**: Retrieve all orders.
+- **POST /api/v1/orders**: Create a new order record. Requires an authorization token.
+- **GET /api/v1/orders/:id**: Retrieve a single order by its ID.
+- **PUT /api/v1/orders/:id**: Update an order record by its ID. Requires an authorization token.
+- **DELETE /api/v1/orders/:id**: Delete an order record by its ID. Requires an authorization token.
+
+## Built With
+
+- **Express.js** - The web framework used
+- **MongoDB** - The database used
+- **Mongoose** - MongoDB object modeling tool
+- **Jest** - The testing framework used
+
+-
