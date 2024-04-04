@@ -1,4 +1,5 @@
 import express from "express";
+
 import ordersRouter from "./ordersRouter";
 import { hasPermission } from "../middlewares/hasPermission";
 import { isRequestedUser } from "../middlewares/isRequestedUser";
@@ -28,13 +29,9 @@ usersRouter.post(
   changePasswordHandler
 );
 usersRouter.patch("/:userId/ban", isAdmin, banUserHandler);
-//
-usersRouter.get("/", getAllUsers);
-
+usersRouter.get("/", getAllUsers, isAdmin);
 usersRouter.delete("/:userId", hasPermission, deleteUser);
-
 usersRouter.get("/:userId", hasPermission, getUserByIdHandler);
-
 usersRouter.put("/:userId", hasPermission, updateUser);
 
 export default usersRouter;
