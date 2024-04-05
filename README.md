@@ -59,7 +59,7 @@ npm run test
 ```
 
 ## Entity Relationship Diagram
-![Vintage Cars ERD](https://i.postimg.cc/3xzRrbPb/Screenshot-2024-04-05-at-09-47-54.png)
+![Vintage Cars ERD](https://i.postimg.cc/gj7hF9Zc/ERD-diagram-for-Vintage-Car-1.png)
 
 ## API Endpoints
 
