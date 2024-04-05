@@ -58,6 +58,9 @@ To ensure the reliability and correctness of the API, unit tests and integration
 npm run test
 ```
 
+## Entity Relationship Diagram
+![Vintage Cars ERD](https://i.postimg.cc/3xzRrbPb/Screenshot-2024-04-05-at-09-47-54.png)
+
 ## API Endpoints
 
 The API can also be accessed in an AWS EC2 instance at http://13.49.67.88:5000 and supports the following operations:
@@ -147,6 +150,40 @@ Base URL: `/api/v1/cars`
 
 - **GET /**: Retrieve all cars.
 - **POST /**: Create a new car record. Requires an authorization token from an admin.
+  - Request Body:
+    ```json
+    {
+       "brand": "65fc287d47b3c87edcd0f21a",
+       "model": "Mercedes",
+       "conditions": [
+           "65f80bce70ee734ea399ae07"
+       ],
+       "description": "German Luxury car known for its excellence and style.",
+       "year": 2020,
+       "price": 970000,
+       "__v": 0
+    }
+    ```
+  - Response:
+    ```json
+    {
+       "data": {
+           "brand": "65fc287d47b3c87edcd0f21a",
+           "model": "Mercedes",
+           "conditions": [
+               "65f80bce70ee734ea399ae07"
+           ],
+           "description": "German Luxury car known for its excellence and style.",
+           "year": 2020,
+           "price": 970000,
+           "_id": "660f9b42d408a4efb4044008",
+           "__v": 0
+       },
+       "message": "car created successfully",
+       "status": "success"
+    }
+    ```
+    
 - **GET /:id**: Retrieve a single car by its ID.
 - **PUT /:id**: Update a car record by its ID. Requires an authorization token from an admin.
 - **DELETE /:id**: Delete a car record by its ID. Requires an authorization token from an admin.
@@ -155,6 +192,33 @@ Base URL: `/api/v1/cars`
 Base URL: `/api/v1/users`
 
   - **GET /**: Retrieve all users. Requires an authorization token from an admin.
+    - Request Header:
+    ```
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWY4MGFmYzcwZWU3MzRlYTM5OWFlMDQiLCJ1c2VyUm9sZSI6IkFkbWluIiwiaXNVc2VyQmFubmVkIjpmYWxzZSwiaWF0IjoxNzEyMjk4Mzc0LCJleHAiOjE3MTIzODQ3NzR9.bMKZF-ItcS_og2sTWoxQr7paTWQVRf8_YFfRbtBgJYo
+    ``` 
+     - Response:
+       ```json
+       {
+          "data": [
+              {
+                  "_id": "65f80afc70ee734ea399ae04",
+                  "role": "Admin",
+                  "email": "jane.smith@example.com",
+                  "hashedPassword": "$2b$10$3PxzUyL9.vmwtWGzJZux6.UjLmV7HNc93Eb1WZt9FtspVI2kel16O",
+                  "userName": "janesmith",
+                  "firstName": "Jane",
+                  "lastName": "Smith",
+                  "banned": false,
+                  "orderHistory": [
+                      "65fd921ff855b31d09bda502"
+                  ],
+                  "__v": 1
+             },
+          ...
+          ]
+       }
+       ```
+
   - **GET /:userId**: Retrieve a single user by its ID.
   - **PUT /:userId**: Update a user record by its ID. Requires an authorization token from either an admin or the user themselves.
   - **DELETE /:userId**: Delete a user record by its ID. Requires an authorization token from either an admin or the user themselves.
