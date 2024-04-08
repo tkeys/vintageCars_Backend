@@ -11,7 +11,7 @@ const port = process.env.PORT as string;
 
 mongoose
   .connect(mongodbUrl, {
-    dbName: "vintagecarsmarket",
+    dbName: "vinatagecarsmarket",
   })
   .then(() => {
     app.listen(port, () => {
