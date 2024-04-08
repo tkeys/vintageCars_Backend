@@ -6,6 +6,8 @@ export interface VintageCarData {
   brand: BrandName;
   model: string;
   conditions: CarCondition[];
+  rating: number;
+  image: string;
   description: string;
   year: number;
   price: number;

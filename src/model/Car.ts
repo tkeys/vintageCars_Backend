@@ -24,6 +24,16 @@ export const VintageCarSchema = new mongoose.Schema({
     type: String,
     required: [true, "Description is required"],
   },
+  rating: {
+    type: Number,
+    required: [true, "Rating is required"],
+    min: [0, "Rating cannot be negative"],
+    max: [5, "Rating cannot be greater than 5"],
+  },
+  image: {
+    type: String,
+    required: [true, "Image is required"],
+  },
   year: {
     type: Number,
     required: true,
