@@ -31,7 +31,7 @@ usersRouter.post(
 usersRouter.patch("/:userId/ban", isAdmin, banUserHandler);
 usersRouter.get("/", getAllUsers, isAdmin);
 usersRouter.delete("/:userId", hasPermission, deleteUser);
-usersRouter.get("/:userId", hasPermission, getUserByIdHandler);
-usersRouter.put("/:userId", hasPermission, updateUser);
+usersRouter.get("/:userId" /* hasPermission, getUserByIdHandler */);
+usersRouter.put("/:userId" /* hasPermission, updateUser */);
 
 export default usersRouter;

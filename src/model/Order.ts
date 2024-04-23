@@ -17,6 +17,14 @@ export const OrderSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  /* paymentMethod: {
+    type: String,
+    required: true,
+  },
+  itemsPrice: {
+    type: Number,
+    required: true,
+  }, */
 });
 
 export default mongoose.model<OrderDocument>("Order", OrderSchema);

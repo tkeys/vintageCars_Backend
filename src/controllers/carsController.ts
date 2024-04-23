@@ -23,7 +23,7 @@ export async function getAllCars(req: Request, res: Response) {
       Number(maxPrice)
     );
     res.status(200).json({
-      data: cars,
+      cars: cars,
       message: "cars retrieved successfully",
       status: "success",
     });
@@ -57,11 +57,13 @@ export async function createCar(req: Request, res: Response) {
 export async function getCarById(req: Request, res: Response) {
   try {
     const foundVintageCar = await vintageCarServices.getCarById(req.params.id);
-    res.status(200).json({
+    res.status(200).json(foundVintageCar);
+    console.log(foundVintageCar);
+    /* res.status(200).json({
       data: foundVintageCar,
       message: "car retrieved by id successfully",
       status: "success",
-    });
+    }); */
   } catch (error) {
     if (error) {
       console.error(error);

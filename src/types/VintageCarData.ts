@@ -2,7 +2,7 @@ import { BrandName } from "./BrandData";
 import { CarCondition } from "./ConditionData";
 
 export interface VintageCarData {
-  id: string;
+  _id: string;
   brand: BrandName;
   model: string;
   conditions: CarCondition[];

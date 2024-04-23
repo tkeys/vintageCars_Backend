@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import authService, { verifyToken } from "../services/authService";
 import { UserData } from "../types/UserData";
 import { extractJwtToken, sanitizeUserData } from "../utils/authUtils";
+import User from "../model/User";
 
 export async function registerUserHandler(
   request: Request,
@@ -43,9 +44,9 @@ export async function loginUserHandler(request: Request, response: Response) {
     }
 
     response.json({
+      token,
       status: "success",
       message: "Login successful",
-      token,
     });
   } catch (error) {
     console.error("Error logging in:", error);

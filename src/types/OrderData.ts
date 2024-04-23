@@ -6,6 +6,8 @@ export interface OrderData {
   carId: string | VintageCarData;
   quantity: number;
   orderSum: number;
+  /*  paymentMethod: string;
+  itemsPrice: number; */
 }
 
 export interface OrderListData {

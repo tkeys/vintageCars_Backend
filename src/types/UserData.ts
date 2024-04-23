@@ -3,6 +3,7 @@ import { OrderListData } from "./OrderData";
 import { Role } from "./Role";
 
 export interface UserData {
+  token?: string;
   id: string;
   email: string;
   userName: string;

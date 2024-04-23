@@ -17,8 +17,8 @@ const getAllCars = async (
       .limit(limit)
       .skip(offset)
       .populate({ path: "brand", select: { _id: 0 } })
-      .populate({ path: "conditions", select: { _id: 0 } })
-      .select({ _id: 0 });
+      .populate({ path: "conditions", select: { _id: 0 } });
+    /* .select({ _id: 0 }); */
   } else {
     return VintageCar.find()
       .sort({
@@ -30,8 +30,8 @@ const getAllCars = async (
       .limit(limit)
       .skip(offset)
       .populate({ path: "brand", select: { _id: 0 } })
-      .populate({ path: "conditions", select: { _id: 0 } })
-      .select({ _id: 0 });
+      .populate({ path: "conditions", select: { _id: 0 } });
+    /* .select({ _id: 0 }); */
   }
 };
 
@@ -44,8 +44,8 @@ const createCar = async (
 const getCarById = async (id: string): Promise<VintageCarDocument> => {
   const foundCar = await VintageCar.findById(id)
     .populate({ path: "brand", select: { _id: 0 } })
-    .populate({ path: "conditions", select: { _id: 0 } })
-    .select({ _id: 0 });
+    .populate({ path: "conditions", select: { _id: 0 } });
+  /* .select({ _id: 0 }); */
   if (foundCar) {
     return foundCar;
   }

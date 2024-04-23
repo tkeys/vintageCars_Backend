@@ -12,6 +12,7 @@ import {
 import { JwtProperty } from "../types/JwtProperty";
 import OrderList from "../model/OrderList";
 import { Role } from "../types/Role";
+import { userInfo } from "os";
 
 async function registerUser(userData: UserData) {
   if (!isUserNameUnique(userData.userName)) {
@@ -37,7 +38,7 @@ async function registerUser(userData: UserData) {
   if (userData.email === "admindandan@gmail.com") {
     newUser.role = Role.Admin;
   }
-  
+
   await newUser.save();
 
   return { newUser, token: generateAuthToken(newUser) };
@@ -46,7 +47,7 @@ async function registerUser(userData: UserData) {
 export async function loginUser(
   email: string,
   password: string
-): Promise<string | null> {
+): Promise<UserData | string | null> {
   try {
     const existingUser = await User.findOne({ email });
 
@@ -62,8 +63,23 @@ export async function loginUser(
     if (!passwordMatch) {
       return null;
     }
+    console.log(existingUser);
+    const token = generateAuthToken(existingUser);
+    return token;
+    /*  const response = {
+      token: token,
+      email: existingUser.email,
+      firstName: existingUser.firstName,
+      lastName: existingUser.lastName,
+      userName: existingUser.userName,
+      role: existingUser.role,
+      banned: existingUser.banned,
+      orderHistory: existingUser.orderHistory,
+      id: existingUser._id,
+      hashedPassword: existingUser.hashedPassword,
+    }; 
 
-    return generateAuthToken(existingUser);
+    return response; */
   } catch (error) {
     console.error("Error logging in:", error);
     throw new Error("Internal server error");

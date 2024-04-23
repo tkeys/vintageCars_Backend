@@ -70,7 +70,14 @@ export async function comparePasswords(
 
 export function generateAuthToken(user: UserData): string {
   const token = jwt.sign(
-    { userId: user.id, userRole: user.role, isUserBanned: user.banned },
+    {
+      userId: user.id,
+      userRole: user.role,
+      isUserBanned: user.banned,
+      userName: user.userName,
+      firstName: user.firstName,
+      lastName: user.lastName,
+    },
     secret,
     {
       expiresIn: "24h",
