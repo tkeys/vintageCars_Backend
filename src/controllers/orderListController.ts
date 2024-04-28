@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import orderListService from "../services/orderListService";
 import { validateOrderSum } from "../utils/ordersUtils";
 import OrderList from "../model/OrderList";
@@ -17,7 +17,42 @@ export async function getOrderListHandler(req: Request, res: Response) {
     res.status(500).json({ status: "error", message: "Internal server error" });
   }
 }
+export async function getOrdersByUserId(req: Request, res: Response) {
+  try {
+    const { userId } = req.params;
+    const orderList = await orderListService.getOrderList(userId);
+    res.status(200).json({
+      data: orderList,
+      status: "success",
+      message: "Order list fetched with success",
+    });
+  } catch (error) {
+    console.error("Error retrieving order list:", error);
+    res.status(500).json({ status: "error", message: "Internal server error" });
+  }
+}
 
+/* export async function getAllOrderListsHandler(req: Request, res: Response) {
+  try {
+    const orderLists = await orderListService.getAllOrderLists();
+    res.status(200).json({
+      data: orderLists,
+      status: "success",
+      message: "All order lists fetched successfully",
+    });
+  } catch (error) {
+    console.error("Error retrieving all order lists:", error);
+    res.status(500).json({ status: "error", message: "Internal server error" });
+  }
+} */
+// export async function getOrderListByUserId(req:Request,res:Response) {
+//   try {
+
+//   } catch (error) {
+//     console.error("Error retrieving order list:", error);
+//     res.status(500).json({ status: "error", message: "Internal server error" });
+//   }
+// }
 export async function addOrderToOrderListHandler(req: Request, res: Response) {
   try {
     const { orderListId } = req.params;

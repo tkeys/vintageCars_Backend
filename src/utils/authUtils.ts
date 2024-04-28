@@ -77,6 +77,8 @@ export function generateAuthToken(user: UserData): string {
       userName: user.userName,
       firstName: user.firstName,
       lastName: user.lastName,
+      orderHistory: user.orderHistory,
+      banned: user.banned,
     },
     secret,
     {

@@ -46,5 +46,7 @@ export function sanitizeOrder(order: OrderDocument): OrderData {
     carId: sanitizedOrder.carId,
     quantity: sanitizedOrder.quantity,
     orderSum: sanitizedOrder.orderSum,
+    paymentMethod: sanitizedOrder.paymentMethod,
+    itemsPrice: sanitizedOrder.itemsPrice,
   };
 }

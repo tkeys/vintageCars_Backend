@@ -14,10 +14,11 @@ import {
 } from "../controllers/usersController";
 
 import { isAdmin } from "../middlewares/isAdmin";
+import { getOrderById } from "../controllers/orderController";
 
 const usersRouter = express.Router();
 
-usersRouter.use("/:userId/orderlists", hasPermission, ordersRouter);
+usersRouter.use("/:userId/orderlists", /*  hasPermission, */ ordersRouter);
 usersRouter.get(
   "/:userId/recover-password",
   isRequestedUser,
@@ -31,7 +32,7 @@ usersRouter.post(
 usersRouter.patch("/:userId/ban", isAdmin, banUserHandler);
 usersRouter.get("/", getAllUsers, isAdmin);
 usersRouter.delete("/:userId", hasPermission, deleteUser);
-usersRouter.get("/:userId" /* hasPermission, getUserByIdHandler */);
-usersRouter.put("/:userId" /* hasPermission, updateUser */);
+usersRouter.get("/:userId", hasPermission, getUserByIdHandler);
+usersRouter.put("/:userId", hasPermission, updateUser);
 
 export default usersRouter;

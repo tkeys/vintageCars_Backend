@@ -109,6 +109,7 @@ export async function updateCarById(req: Request, res: Response) {
 export async function deleteCarById(req: Request, res: Response) {
   try {
     const deleted = await vintageCarServices.deleteCarById(req.params.id);
+    console.log(req.params);
     console.log(deleted);
     res.status(200).json({
       message: "Car deleted successfully",

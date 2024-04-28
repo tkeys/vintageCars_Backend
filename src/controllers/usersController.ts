@@ -91,7 +91,7 @@ export async function getUserByIdHandler(req: Request, res: Response) {
   try {
     const { userId } = req.params;
     const singleUser = await userService.getUserById(userId);
-
+    console.log(singleUser);
     if (!singleUser) {
       return res
         .status(404)
