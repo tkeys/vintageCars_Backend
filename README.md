@@ -1,6 +1,6 @@
 # Vintage Cars API
 
-Welcome to the Vintage Cars API project! This API was built by [Danilo Canguçu](https://github.com/danilocangucu), [Theo Adejumo](https://github.com/tkeys) and [Francis Eboyie](https://github.com/Eboyie) as part of Integrify's 2024 Node.js cohort. The project provides a platform for managing a collection of vintage cars, including operations for creating, retrieving, updating, and deleting car records. It's mainly built using TypeScript Express.js and MongoDB – [see full technologies, in Built With section](#built-with) – offering a robust backend solution for vintage car enthusiasts and collectors.
+Welcome to the Vintage Cars API project! This API was initally built by[Danilo Canguçu](https://github.com/danilocangucu), [Theo Adejumo](https://github.com/tkeys) and [Francis Eboyie](https://github.com/Eboyie)  and subsequently modified and e´refactored for Final fullstack project as part of Integrify's FS- 172024 cohort. The project provides a platform for managing a collection of vintage cars, including operations for creating, retrieving, updating, and deleting car records. It's mainly built using TypeScript Express.js and MongoDB – [see full technologies, in Built With section](#built-with) – offering a robust backend solution for vintage car enthusiasts and collectors.
 This is personal
 
 ## Getting Started
@@ -20,7 +20,7 @@ Before you begin, ensure you have the following installed:
 1. Clone the repository to your local machine:
 
    ```sh
-   git clone https://github.com/danilocangucu/vintage-cars.git
+   git clone https://github.com/tkeys/fs17-backend/tree/fs17-backendtheo
    cd vintage-cars
    ```
 
