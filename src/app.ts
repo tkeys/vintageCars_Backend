@@ -10,7 +10,15 @@ import cors from "cors";
 const baseUrl = "/api/v1";
 
 const app = express();
-app.use(cors({ origin: "*", credentials: true }));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://fs17-e-commerce-project.vercel.app/",
+    ],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(`${baseUrl}/cars`, carsRouter);
