@@ -26,6 +26,8 @@ describe("OrderList Services", () => {
         quantity: 2,
         orderSum: 80000,
         id: "",
+        itemsPrice: 80000,
+        paymentMethod: "paypal",
       }
     );
 
