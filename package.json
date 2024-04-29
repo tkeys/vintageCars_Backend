@@ -26,8 +26,7 @@
     "start": "node dist/server.js",
     "dev": "nodemon --watch 'src/**/*.ts' --exec ts-node src/server.ts",
     "build": "tsc -p .",
-    "test": "jest --runInBand --forceExit --detectOpenHandles --coverage --verbose false",
-    "vercel-build": "echo hello"
+    "test": "jest --runInBand --forceExit --detectOpenHandles --coverage --verbose false"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
