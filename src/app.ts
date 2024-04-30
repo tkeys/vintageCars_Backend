@@ -12,7 +12,7 @@ const baseUrl = "/api/v1";
 const app = express();
 
 const allowedOrigins = [
-  "http://localhost:3000",
+  /* "http://localhost:3000", */
   "https://fs17-e-commerce-project.vercel.app/",
 ];
 app.use(
