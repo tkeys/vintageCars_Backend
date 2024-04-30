@@ -13,7 +13,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://fs17-e-commerce-project.vercel.app/api/v1",
+  "https://fs17-e-commerce-project.vercel.app/",
 ];
 app.use(
   cors({
@@ -28,6 +28,17 @@ app.use(
       "http://localhost:3000",
       "https://fs17-e-commerce-project.vercel.app/api/v1",
     ], */
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS"],
+    allowedHeaders: [
+      "Content-Type",
+      "Origin",
+      "X-Requested-With",
+      "Accept",
+      "x-client-key",
+      "x-client-token",
+      "x-client-secret",
+      "Authorization",
+    ],
     credentials: true,
   })
 );
