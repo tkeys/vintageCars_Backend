@@ -12,10 +12,10 @@ const baseUrl = "/api/v1";
 const app = express();
 app.use(
   cors({
-    origin:
-      /* "http://localhost:3000", */
+    origin: [
+      "http://localhost:3000",
       "https://fs17-e-commerce-project.vercel.app/api/v1",
-
+    ],
     credentials: true,
   })
 );
