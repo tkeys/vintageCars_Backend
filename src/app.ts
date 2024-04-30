@@ -10,13 +10,11 @@ import cors from "cors";
 const baseUrl = "/api/v1";
 
 const app = express();
-
+const allowedOrigins = process.env.CORS_ORIGIN?.split(",");
+console.log(allowedOrigins);
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",
-      "https://fs17-e-commerce-project.vercel.app",
-    ],
+    origin: allowedOrigins,
 
     credentials: true,
   })
