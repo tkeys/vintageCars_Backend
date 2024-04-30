@@ -15,7 +15,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "https://fs17-e-commerce-project.vercel.app/",
-      "https://fs17-e-commerce-project.vercel.app/*",
+      "*",
     ],
     credentials: true,
   })
